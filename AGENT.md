@@ -1,6 +1,6 @@
-# Skills Agent Guide
+# Agent Skills Guide
 
-이 가이드는 Vox2Vocal product-management and TRD skills 저장소 변경에 적용합니다.
+이 가이드는 `vox2vocal-agent-skills` 저장소의 product-management and TRD Codex skill 변경에 적용합니다.
 
 ## Scope
 
@@ -37,7 +37,7 @@ scripts/install-git-policy-hooks.sh
 
 ## Commit Convention
 
-커밋 요청이 있으면 `skills` repo 안에서만 커밋하고 푸시합니다. 커밋 메시지는 Vox2Vocal Git 정책을 따릅니다.
+커밋 요청이 있으면 `vox2vocal-agent-skills` repo 안에서만 커밋하고 푸시합니다. 커밋 메시지는 Vox2Vocal Git 정책을 따릅니다.
 
 ```text
 type(scope): 한글 제목
@@ -56,4 +56,3 @@ ci
 ```
 
 커밋 author와 committer는 항상 `gitbyul <gitbyul@gmail.com>`이어야 합니다.
-
