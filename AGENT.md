@@ -1,14 +1,15 @@
 # Agent Skills Guide
 
-이 가이드는 `vox2vocal-agent-skills` 저장소의 product-management and TRD Codex skill 변경에 적용합니다.
+이 가이드는 `vox2vocal-agent-skills` 저장소의 Codex skill 변경에 적용합니다.
 
 ## Scope
 
-이 저장소는 Codex skill folder를 관리합니다.
+이 저장소는 Vox2Vocal 제품 기획 파이프라인용 Codex skill folder를 관리합니다.
 
-- `product-manager-skills/`: PRD, feature definition, page flow, roadmap, ticket draft skill
-- `trd-skills/`: PRD-to-TRD bridge, TRD writing/review, API/data contract, technical risk skill
-- `prd-trd-skill-flow-guide.md`: PM skill에서 TRD skill로 이어지는 권장 작업 흐름
+- `strategy-skills/`: 사업 맥락, 제품 전략, 제품 비전, 목표 시스템, 페이즈 계획
+- `product-manager-skills/`: 제품 브리프, PRD, 기능 정의, 페이지/플로우, 티켓, 로드맵
+- `trd-skills/`: PRD-to-TRD bridge, TRD 작성/리뷰, API/data contract, technical risk
+- `product-planning-skill-flow-guide.md`: 전략에서 PRD/TRD/티켓까지 이어지는 권장 흐름
 
 ## Skill Rules
 
@@ -16,10 +17,14 @@
 2. `SKILL.md` frontmatter는 `name`과 `description`만 둡니다.
 3. `name`은 skill folder name과 정확히 일치해야 합니다.
 4. `name`과 folder name은 lowercase kebab-case를 사용합니다.
-5. `description`에는 skill이 하는 일과 trigger context를 함께 적습니다.
-6. 개별 skill folder 안에는 `README.md`, `CHANGELOG.md`, `QUICK_REFERENCE.md` 같은 보조 문서를 두지 않습니다.
-7. 큰 참고 자료가 필요하면 skill folder 안의 `references/`, 반복 실행 코드가 필요하면 `scripts/`, 출력 템플릿은 `assets/`를 사용합니다.
-8. PM/TRD workflow 설명처럼 여러 skill을 가로지르는 문서는 저장소 루트 문서로 둡니다.
+5. `description`에는 trigger context와 skill의 책임 경계를 함께 적습니다.
+6. 개별 skill folder 안에는 `README.md`, `CHANGELOG.md`, `QUICK_REFERENCE.md`, `INSTALLATION_GUIDE.md` 같은 보조 문서를 두지 않습니다.
+7. 사용자-facing 산출물의 큰 제목은 `한글 (English)` 형식을 기본으로 합니다.
+8. 여러 skill을 가로지르는 흐름 문서는 저장소 루트 문서로 둡니다.
+
+## Pipeline Principle
+
+각 skill은 이전 단계의 결정을 바꾸지 않고 다음 단계가 사용할 수 있게 구체화합니다. 이전 단계의 결정이 흔들리면 다음 단계로 밀지 말고 해당 skill로 되돌립니다.
 
 ## Validation
 
@@ -49,6 +54,7 @@ type(scope): 한글 제목
 
 ```text
 skills
+strategy-skills
 pm-skills
 trd-skills
 docs

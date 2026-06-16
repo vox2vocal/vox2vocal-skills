@@ -1,6 +1,6 @@
 # Vox2Vocal Agent Skills
 
-Vox2Vocal product-management and technical-planning work에 사용하는 Codex skill 모음입니다.
+Vox2Vocal의 제품 기획 파이프라인에 사용하는 Codex skill 모음입니다. 목표는 아이디어를 바로 PRD나 티켓으로 밀어 넣는 것이 아니라, 사업 맥락에서 시작해 `무엇을 만들지`에 대한 기준을 흔들리지 않게 내려보내는 것입니다.
 
 ## Directory
 
@@ -8,7 +8,13 @@ Vox2Vocal product-management and technical-planning work에 사용하는 Codex s
 vox2vocal-agent-skills/
   README.md
   AGENT.md
-  prd-trd-skill-flow-guide.md
+  product-planning-skill-flow-guide.md
+  strategy-skills/
+    business-context/
+    product-strategy/
+    product-vision-writer/
+    target-system-planner/
+    phase-planner/
   product-manager-skills/
     pm-context/
     prd-writer/
@@ -27,16 +33,23 @@ vox2vocal-agent-skills/
 
 ## Skill Groups
 
+`strategy-skills/`는 사업 맥락, 제품 전략, 제품 비전, 목표 시스템, 페이즈 계획을 담당합니다.
+
 `product-manager-skills/`는 제품 brief 수집, PRD 작성/검토, MVP feature 정의, page flow planning, roadmap prioritization, ticket draft 생성을 담당합니다.
 
 `trd-skills/`는 PRD를 기술 계획으로 넘기는 bridge, TRD 작성/검토, API/data contract 계획, technical risk 점검을 담당합니다.
 
-전체 PM-to-TRD 흐름은 `prd-trd-skill-flow-guide.md`를 기준으로 봅니다.
+전체 제품 기획 흐름은 `product-planning-skill-flow-guide.md`를 기준으로 봅니다.
 
 ## Skill Index
 
 | Skill | Group | Use |
 | --- | --- | --- |
+| `business-context` | strategy-skills | 사업 목표, 시장/고객/구매자, 가치 교환, 수익 모델, 제약을 정리합니다. |
+| `product-strategy` | strategy-skills | 타깃 세그먼트, 핵심 문제, 차별화, 전략적 선택, 핵심 지표를 정리합니다. |
+| `product-vision-writer` | strategy-skills | 완성된 제품 경험, 노스스타 지표, 제품 원칙, anti-vision을 정의합니다. |
+| `target-system-planner` | strategy-skills | 목표 시스템의 역할, 모듈, 워크플로우, 데이터, 권한, 경계를 정리합니다. |
+| `phase-planner` | strategy-skills | 목표 시스템을 MVP, P0/P1/P2, 페이즈, 종료 기준, PRD 후보로 나눕니다. |
 | `pm-context` | product-manager-skills | 제품, 사용자, 문제, 목표, 제약, 성공 기준이 불명확할 때 PM brief를 정리합니다. |
 | `prd-writer` | product-manager-skills | 제품 아이디어나 brief를 engineering handoff 가능한 PRD로 작성합니다. |
 | `prd-reviewer` | product-manager-skills | 기존 PRD나 요구사항 문서를 제품 관점에서 readiness review합니다. |
