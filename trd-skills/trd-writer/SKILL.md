@@ -1,90 +1,69 @@
 ---
 name: trd-writer
-description: Use when the user wants to create a Technical Requirements Document or technical design from a PRD, feature definition, page/flow plan, or PRD-to-TRD bridge, covering architecture, implementation approach, APIs, data model, permissions, observability, rollout, rollback, and test strategy.
+description: Use to write a Technical Requirements Document from a PRD-to-TRD bridge, PRD, feature plan, or technical input package.
 ---
 
-# Purpose
+# Pipeline Role
 
-Write an engineering-ready TRD that explains how the product requirements will be implemented safely and measurably.
+- Receives: PRD-to-TRD bridge, PRD, feature definition, page/flow plan, and known architecture context.
+- Produces: TRD that explains how to implement the PRD safely and measurably.
+- Locks: technical approach, architecture decisions, subsystem changes, API/data contracts, permissions, observability, rollout, rollback, tests, risks, and alternatives.
+- Hard boundary: do not rewrite product requirements or create tickets before review.
 
-# When To Use
+# Use When
+- product requirements are stable enough for technical design.
+- engineering needs a technical design before ticketing or implementation.
+- API/data/auth/observability/rollout decisions need to be documented.
+# Decision Rules
+- Start from requirement traceability; every major technical section should map back to PRD needs.
+- Choose the smallest technical approach that satisfies product requirements and risks.
+- Include rollout, rollback, observability, and test strategy when production behavior changes.
+- State alternatives considered when there is a meaningful architectural tradeoff.
+# Output Contract
 
-Use this skill after `prd-to-trd-bridge` when product requirements are stable enough for technical planning.
-
-Use it when the user asks to:
-
-- write a TRD or technical design
-- translate product requirements into implementation approach
-- define architecture, API, data, permission, rollout, or testing plans
-- prepare engineering handoff from a PRD
-
-# Workflow
-
-1. Identify the product requirements and success criteria that the TRD must satisfy.
-2. Summarize the proposed technical approach and major architectural decisions.
-3. Define changes by subsystem, such as frontend, backend, API, data, worker, infra, analytics, or auth.
-4. Specify API and data contract changes at the right level of detail.
-5. Define rollout, rollback, observability, and test strategy.
-6. Call out technical risks, tradeoffs, alternatives considered, and open questions.
-
-# Required Inputs
-
-Ask only for missing information that materially changes the TRD:
-
-- PRD or PRD-to-TRD bridge
-- relevant architecture or repo/service context
-- affected systems or surfaces
-- known technical constraints or required technologies
-- expected rollout constraints
-- existing API/data contracts, if relevant
-
-# Output Format
+Use Korean-first headings with English in parentheses for user-facing output.
 
 ```markdown
-# Technical Requirements Document
+# 기술 요구사항 문서 (Technical Requirements Document)
 
-## Technical Summary
+## 기술 요약 (Technical Summary)
 
-## Product Requirement Traceability
+## 제품 요구사항 추적성 (Product Requirement Traceability)
 
-## Architecture / Approach
+## 아키텍처 / 접근 방식 (Architecture / Approach)
 
-## Frontend Changes
+## 프론트엔드 변경사항 (Frontend Changes)
 
-## Backend / Service Changes
+## 백엔드 / 서비스 변경사항 (Backend / Service Changes)
 
-## API Contract
+## API 계약 (API Contract)
 
-## Data Model / Migration
+## 데이터 모델 / 마이그레이션 (Data Model / Migration)
 
-## Auth / Permissions
+## 인증 / 권한 (Auth / Permissions)
 
-## Observability
+## 관측성 (Observability)
 
-## Performance / Security Considerations
+## 성능 / 보안 고려사항 (Performance / Security Considerations)
 
-## Rollout / Rollback Plan
+## 롤아웃 / 롤백 계획 (Rollout / Rollback Plan)
 
-## Test Plan
+## 테스트 계획 (Test Plan)
 
-## Risks and Tradeoffs
+## 리스크와 트레이드오프 (Risks and Tradeoffs)
 
-## Alternatives Considered
+## 검토한 대안 (Alternatives Considered)
 
-## Open Technical Questions
+## 열린 기술 질문 (Open Technical Questions)
+
+## 다음 추천 스킬 (Recommended Next Skill)
 ```
 
+# Handoff Gate
+- Continue to trd-reviewer after drafting.
+- Route to api-data-contract-planner when API or data changes need more detail.
+- Route back to prd-to-trd-bridge when product-to-technical traceability is weak.
 # Quality Bar
-
-- The TRD must map back to PRD requirements.
-- Technical decisions must include rationale and tradeoffs.
-- API, data, auth, rollout, rollback, observability, and tests must not be omitted when relevant.
-- Unknowns must be listed as open technical questions, not silently assumed.
-- Avoid over-engineering; choose the smallest design that satisfies the PRD and risks.
-
-# Common Pitfalls
-
-- Do not rewrite the PRD as a TRD.
-- Do not hide major technical choices behind generic language.
-- Do not create tickets before the design is reviewed.
-- Do not claim rollback safety without explaining how rollback works.
+- The TRD must be a technical decision document, not a PRD copy.
+- No major production change should lack observability, rollout, rollback, and tests.
+- Open technical questions must be visible before tickets are created.

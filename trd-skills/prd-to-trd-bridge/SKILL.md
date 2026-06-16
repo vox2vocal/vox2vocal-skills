@@ -1,79 +1,57 @@
 ---
 name: prd-to-trd-bridge
-description: Use when the user wants to convert a PRD, feature definition, or page/flow plan into a technical input package for TRD writing, mapping product requirements to technical impact areas, engineering questions, dependencies, and nonfunctional requirements.
+description: Use to convert PRD, feature definition, and page/flow plan into a TRD input package with requirement traceability, technical impact areas, nonfunctional requirements, and engineering questions.
 ---
 
-# Purpose
+# Pipeline Role
 
-Prepare a PRD for technical planning without turning product requirements into implementation details too early. This skill creates the bridge between product intent and TRD writing.
+- Receives: reviewed PRD, feature definition, and page/flow plan.
+- Produces: TRD input package that maps product requirements to technical planning areas.
+- Locks: requirement traceability, likely affected systems, API/data considerations, permissions/security, nonfunctional requirements, and engineering questions.
+- Hard boundary: do not write the full TRD, choose final architecture, or create tickets.
 
-# When To Use
+# Use When
+- PRD and product flows are ready for technical planning.
+- engineering needs a structured handoff from product requirements.
+- technical impact areas are unclear across frontend, backend, API, data, infra, worker, or analytics.
+# Decision Rules
+- Every major product requirement should map to a technical impact area.
+- Preserve PRD intent; do not replace product decisions with implementation guesses.
+- Translate success metrics into observability and validation needs.
+- If architecture or service ownership is unknown, ask explicit engineering questions.
+# Output Contract
 
-Use this skill after PRD review, feature definition, or page/flow planning and before writing a TRD.
-
-Use it when the user asks to:
-
-- prepare a PRD for engineering design
-- identify technical impact areas from product requirements
-- map product requirements to frontend, backend, API, data, infra, worker, or analytics work
-- collect open engineering questions before TRD writing
-- check whether a PRD is ready for technical design
-
-# Workflow
-
-1. Extract product intent, user value, and success criteria from the input.
-2. Create a requirement traceability map from PRD items to technical impact areas.
-3. Identify likely affected systems, services, pages, APIs, data models, jobs, events, and permissions.
-4. Convert product constraints into nonfunctional requirements such as performance, security, reliability, privacy, observability, and rollout needs.
-5. Flag missing information as engineering questions instead of inventing details.
-6. Recommend whether the next step should be `trd-writer`, `prd-reviewer`, `feature-definer`, or `page-flow-planner`.
-
-# Required Inputs
-
-Ask only for missing information that materially changes technical planning:
-
-- PRD, feature definition, or page/flow plan
-- current architecture or relevant repo/service names, if known
-- target platform and affected surfaces
-- known data, API, auth, compliance, performance, or rollout constraints
-- technical decisions that are already fixed
-
-# Output Format
+Use Korean-first headings with English in parentheses for user-facing output.
 
 ```markdown
-# PRD to TRD Bridge
+# PRD-TRD 연결 (PRD to TRD Bridge)
 
-## Product Intent
+## 제품 의도 (Product Intent)
 
-## Requirement Traceability
+## 요구사항 추적성 (Requirement Traceability)
 
-| Product requirement | Technical impact area | Notes / questions |
+| 제품 요구사항 (Product Requirement) | 기술 영향 영역 (Technical Impact Area) | 메모 / 질문 (Notes / Questions) |
 |---|---|---|
 
-## Likely Affected Systems
+## 예상 영향 시스템 (Likely Affected Systems)
 
-## API / Data Considerations
+## API / 데이터 고려사항 (API / Data Considerations)
 
-## Permission / Security Considerations
+## 권한 / 보안 고려사항 (Permission / Security Considerations)
 
-## Nonfunctional Requirements
+## 비기능 요구사항 (Nonfunctional Requirements)
 
-## Engineering Questions
+## 엔지니어링 질문 (Engineering Questions)
 
-## Readiness for TRD
+## TRD 준비도 (Readiness for TRD)
 
-## Recommended Next Skill
+## 다음 추천 스킬 (Recommended Next Skill)
 ```
 
+# Handoff Gate
+- Continue to trd-writer when requirement traceability and open engineering questions are clear.
+- Route back to PRD/product skills when product requirements are ambiguous or untraceable.
 # Quality Bar
-
-- Keep product requirements separate from technical decisions.
-- Every major product requirement should map to at least one technical impact area.
-- Technical questions must be specific enough for an engineer to answer.
-- If architecture is unknown, state assumptions and ask for repo/service context.
-
-# Common Pitfalls
-
-- Do not write the full TRD in this skill.
-- Do not assume a database, framework, or service boundary without evidence.
-- Do not drop product success metrics; translate them into observability and validation needs.
+- The bridge must prevent TRD writing from losing product intent.
+- Unknown technical ownership should be explicit.
+- Do not choose a solution where the product requirement only needs an impact question.

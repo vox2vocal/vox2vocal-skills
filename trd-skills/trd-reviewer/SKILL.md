@@ -1,74 +1,57 @@
 ---
 name: trd-reviewer
-description: Use when the user wants to critically review a TRD or technical design for missing PRD coverage, unclear architecture, API/data contract gaps, migration risk, security issues, observability gaps, rollback weakness, performance risks, and insufficient test strategy.
+description: Use to critically review a TRD for PRD coverage, architecture clarity, API/data gaps, migration risk, auth/security, observability, rollback, performance, and test readiness.
 ---
 
-# Purpose
+# Pipeline Role
 
-Review a TRD with an engineering quality gate mindset before implementation begins.
+- Receives: TRD and related PRD or PRD-to-TRD bridge.
+- Produces: technical readiness review with blockers, risks, fixes, and Go/Revise/No-go recommendation.
+- Locks: whether the TRD can proceed to contract detail, risk check, or ticket breakdown.
+- Hard boundary: do not rewrite the TRD unless explicitly asked; do not create implementation tickets.
 
-# When To Use
+# Use When
+- a TRD is about to become tickets or implementation work.
+- technical coverage, rollout, rollback, tests, or API/data contracts may be incomplete.
+- the user asks whether a design is safe to build.
+# Decision Rules
+- Review against the PRD, not just against engineering preference.
+- Prioritize missing requirement coverage, unsafe data changes, unclear contracts, auth/security gaps, observability gaps, and rollback weakness.
+- Separate blockers from important non-blocking risks.
+- Require concrete fixes for blockers before Go.
+# Output Contract
 
-Use this skill after `trd-writer` and before `spec-to-tickets`.
-
-Use it when the user asks to:
-
-- review a TRD
-- find technical design risks
-- check whether a TRD is implementation-ready
-- verify that technical plans satisfy the PRD
-- identify missing tests, rollout, rollback, or observability plans
-
-# Workflow
-
-1. Compare the TRD against the PRD or bridge document when provided.
-2. Check requirement coverage and traceability.
-3. Review architecture, API contracts, data model, permissions, migration, observability, rollout, rollback, and tests.
-4. Identify blocking issues, non-blocking risks, and recommended fixes.
-5. End with a Go / Revise / No-go recommendation.
-
-# Required Inputs
-
-Ask for missing context only if it changes the review:
-
-- TRD or technical design
-- PRD or product requirements, if not included
-- repo/service context, if the review depends on existing architecture
-- known constraints or nonfunctional requirements
-
-# Output Format
+Use Korean-first headings with English in parentheses for user-facing output.
 
 ```markdown
-# TRD Review
+# TRD 리뷰 (TRD Review)
 
-## Verdict
+## 판정 (Verdict)
 
-## Requirement Coverage
+## 요구사항 커버리지 (Requirement Coverage)
 
-## Blocking Issues
+## 차단 이슈 (Blocking Issues)
 
-## Important Risks
+## 주요 리스크 (Important Risks)
 
-## Recommended Fixes
+## 권장 수정사항 (Recommended Fixes)
 
-## Missing Tests / Observability
+## 누락된 테스트 / 관측성 (Missing Tests / Observability)
 
-## Rollout / Rollback Concerns
+## 롤아웃 / 롤백 우려사항 (Rollout / Rollback Concerns)
 
-## Questions Before Build
+## 빌드 전 질문 (Questions Before Build)
 
-## Go / Revise / No-go
+## 진행 / 수정 / 중단 (Go / Revise / No-go)
+
+## 다음 추천 스킬 (Recommended Next Skill)
 ```
 
+# Handoff Gate
+- Continue to technical-risk-checker when TRD is broadly sound.
+- Continue to api-data-contract-planner if contracts are underspecified.
+- Route back to trd-writer when architecture, traceability, rollout, rollback, or tests need material revision.
 # Quality Bar
-
-- Findings should be actionable and tied to implementation risk.
-- Prioritize missing coverage, unsafe migrations, unclear contracts, auth/security gaps, and rollback weaknesses.
-- Do not over-focus on style or wording.
-- If the TRD is strong, say so clearly but still list residual risks.
-
-# Common Pitfalls
-
-- Do not approve a TRD that cannot be traced back to the PRD.
-- Do not ignore data migration or backward compatibility.
-- Do not accept vague test plans such as "add tests" without scenarios.
+- The review must protect production safety and PRD coverage.
+- Do not approve vague rollback or test plans.
+- Style feedback is secondary to design risk.

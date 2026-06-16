@@ -1,77 +1,57 @@
 ---
 name: technical-risk-checker
-description: Use when the user wants to audit a TRD, implementation plan, or release plan for technical risks such as data loss, auth bypass, migration failure, performance bottlenecks, missing observability, unsafe rollout, weak rollback, and untested edge cases.
+description: Use to audit TRD or implementation plans for data loss, auth bypass, migration failure, performance bottlenecks, missing observability, unsafe rollout, weak rollback, and untested edge cases.
 ---
 
-# Purpose
+# Pipeline Role
 
-Surface technical risks before implementation or release and turn them into mitigations, tests, monitoring, and rollout controls.
+- Receives: TRD, API/data contract plan, implementation plan, or release plan.
+- Produces: technical risk matrix with mitigations, tests, monitoring, rollout/rollback readiness, and recommendation.
+- Locks: blocking risks, required mitigations, required tests, required monitoring, and rollout/rollback readiness.
+- Hard boundary: do not rewrite TRD or create tickets unless asked; produce risk decisions that feed those documents.
 
-# When To Use
+# Use When
+- TRD review is complete or nearly complete.
+- the work touches production data, auth, performance, reliability, migration, or rollout risk.
+- the team needs a final risk pass before ticket breakdown.
+# Decision Rules
+- Treat low confidence as risk, not as approval.
+- Rate risk by likelihood and impact, then identify mitigations.
+- Mark risks as blocking when they can cause data loss, security issues, unrollbackable release, or invalid validation.
+- Translate risks into tests, monitoring, or TRD/ticket updates.
+# Output Contract
 
-Use this skill after TRD review, before ticketing, or before launch readiness checks.
-
-Use it when the user asks to:
-
-- identify technical risks
-- check whether a design is safe to build
-- prepare risk mitigations before implementation
-- audit rollout and rollback readiness
-- find missing monitoring or test coverage
-
-# Workflow
-
-1. Read the PRD/TRD or implementation plan.
-2. Identify risks across data, auth, security, migration, performance, reliability, observability, rollout, rollback, and testing.
-3. Rate each risk by likelihood and impact.
-4. Recommend mitigations, tests, monitors, and fallback plans.
-5. Identify risks that should block implementation or release.
-
-# Required Inputs
-
-Ask only for missing information that affects risk assessment:
-
-- TRD or implementation plan
-- affected systems and data
-- rollout strategy
-- rollback expectations
-- known constraints or incidents
-- service-level or performance expectations
-
-# Output Format
+Use Korean-first headings with English in parentheses for user-facing output.
 
 ```markdown
-# Technical Risk Check
+# 기술 리스크 점검 (Technical Risk Check)
 
-## Overall Risk Level
+## 전체 리스크 수준 (Overall Risk Level)
 
-## Risk Matrix
+## 리스크 매트릭스 (Risk Matrix)
 
-| Risk | Area | Likelihood | Impact | Mitigation | Blocking? |
+| 리스크 (Risk) | 영역 (Area) | 가능성 (Likelihood) | 영향도 (Impact) | 완화책 (Mitigation) | 차단 여부 (Blocking?) |
 |---|---|---:|---:|---|---|
 
-## Required Mitigations
+## 필수 완화책 (Required Mitigations)
 
-## Required Tests
+## 필수 테스트 (Required Tests)
 
-## Required Monitoring
+## 필수 모니터링 (Required Monitoring)
 
-## Rollout / Rollback Readiness
+## 롤아웃 / 롤백 준비도 (Rollout / Rollback Readiness)
 
-## Open Risk Questions
+## 열린 리스크 질문 (Open Risk Questions)
 
-## Recommendation
+## 추천 (Recommendation)
+
+## 다음 추천 스킬 (Recommended Next Skill)
 ```
 
+# Handoff Gate
+- Continue to spec-to-tickets when blocking risks are resolved or explicitly owned.
+- Route back to trd-writer or api-data-contract-planner when risk mitigations require design changes.
 # Quality Bar
-
-- Risks must be specific, not generic.
-- Blocking risks must have clear reasons.
-- Mitigations should translate into TRD updates or tickets.
-- Monitoring and rollback readiness must be checked for production-impacting work.
-
-# Common Pitfalls
-
-- Do not treat low confidence as low risk.
-- Do not ignore data and permission risks just because the UI is simple.
-- Do not approve release readiness without observability and rollback plans.
+- Risks must be specific and actionable.
+- Monitoring and rollback readiness are required for production-impacting work.
+- The recommendation must say whether ticketing can proceed.
