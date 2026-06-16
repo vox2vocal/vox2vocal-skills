@@ -1,67 +1,48 @@
 ---
 name: prd-reviewer
-description: Use when the user provides an existing PRD, feature spec, proposal, or requirements document and wants a strong readiness review focused on product clarity, metrics, scope, risks, dependencies, and testability. Do not use to draft a PRD from scratch.
+description: Use to review an existing PRD or feature spec for product clarity, scope control, metrics, risks, dependencies, and build readiness.
 ---
 
-# Purpose
+# Pipeline Role
 
-Review an existing PRD or feature spec with an actionable PM critique. Identify build-readiness gaps before design, engineering, or leadership commits to the work.
+- Receives: PRD, feature spec, proposal, or requirements draft.
+- Produces: readiness review with blockers, fixes, questions, and Go/Revise/No-go recommendation.
+- Locks: whether the PRD can proceed to feature definition and TRD preparation.
+- Hard boundary: do not rewrite the full PRD unless explicitly asked; do not create tickets or technical design.
 
-# When To Use
+# Use When
+- the user asks to critique, audit, pressure-test, or approve a PRD.
+- a PRD is about to move to feature definition, design, TRD, or tickets.
+- scope, metrics, or acceptance criteria may be weak.
+# Decision Rules
+- Lead with blockers before summary or encouragement.
+- Check solution smuggling, weak metrics, unclear user/problem, scope creep, missing non-goals, dependencies, and untestable acceptance criteria.
+- Classify issues by severity and explain product or delivery impact.
+- If evidence is missing, ask questions; do not patch the PRD silently.
+# Output Contract
 
-Use this skill when the user asks to review, critique, audit, pressure-test, or assess whether a PRD or feature spec is ready to build.
+Use Korean-first headings with English in parentheses for user-facing output.
 
-Do not use this skill to create a new PRD, split work into tickets, or rank multiple roadmap candidates unless the review explicitly requires that as a follow-up.
+```markdown
+# PRD 리뷰 (PRD Review)
 
-# Workflow
+## 판정 (Verdict)
 
-1. Identify the intended user, problem, goals, non-goals, scope, requirements, acceptance criteria, metrics, dependencies, and risks.
-2. Look hard for solution smuggling, weak or missing metrics, unclear user/problem framing, scope creep, missing non-goals, dependency risk, delivery risk, and untestable acceptance criteria.
-3. Challenge PM logic: ask whether the document proves the problem, defines the outcome, and constrains the solution enough for delivery.
-4. Classify issues by severity. Lead with blockers and decisions that must happen before build.
-5. Recommend concrete fixes. Avoid praise unless it clarifies what should be preserved.
-6. If the spec lacks information, do not fill it in. Ask questions or list assumptions explicitly.
+## 핵심 이슈 (Critical Issues)
 
-# Required Inputs
+## 권장 수정사항 (Recommended Fixes)
 
-- Existing PRD, feature spec, product proposal, or requirements draft
-- Optional context: company goals, target users, constraints, timeline, metrics, prior research, dependency owners
+## 빌드 전 질문 (Questions Before Build)
 
-# Output Format
+## 진행 여부 (Go / Revise / No-go)
 
-## Verdict
-- Status:
-- One-line reason:
+## 다음 추천 스킬 (Recommended Next Skill)
+```
 
-## Critical Issues
-- Issue:
-- Why it matters:
-- Severity:
-
-## Recommended Fixes
-- Fix:
-- Owner or decision needed:
-
-## Questions Before Build
-- Question:
-- Why it blocks or changes scope:
-
-## Go/No-go
-- Recommendation:
-- Conditions to proceed:
-
+# Handoff Gate
+- Continue to feature-definer only when verdict is Go or Revise-with-minor-fixes.
+- Route back to prd-writer when scope, metrics, requirements, or non-goals need material revision.
 # Quality Bar
-
-- Actionable critique comes before summary or encouragement.
-- Every major critique should explain product impact, delivery impact, or measurement impact.
-- Flag acceptance criteria that cannot be objectively tested.
-- Separate real user or business impact from stakeholder pressure.
-- Avoid rewriting the whole PRD unless the user asks for a revised version.
-
-# Common Pitfalls
-
-- Giving polite general feedback instead of naming blockers.
-- Missing hidden solution decisions disguised as requirements.
-- Accepting vanity metrics as success metrics.
-- Letting ambiguous scope pass because the intent feels obvious.
-- Treating dependencies and rollout risks as implementation details only.
+- The review must protect the team from building ambiguous or unmeasurable work.
+- Every blocking issue should have a concrete fix or decision owner.
+- Do not reward a polished PRD that is strategically or metrically weak.

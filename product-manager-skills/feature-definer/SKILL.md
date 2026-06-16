@@ -1,99 +1,60 @@
 ---
 name: feature-definer
-description: Use when the user wants to turn a PRD, product brief, feature idea, or reviewed requirements into a feature definition with MVP scope, later scope, business rules, states, permissions, edge cases, and measurable behavior before page planning or ticket breakdown.
+description: Use to turn an approved or near-approved PRD into feature definitions with MVP scope, later scope, business rules, states, permissions, edge cases, and measurable behavior.
 ---
 
-# Purpose
+# Pipeline Role
 
-Turn a PRD or product brief into a clear feature definition that separates what belongs in MVP, what should wait, and what is out of scope. This skill sits between PRD review and page/flow planning.
+- Receives: reviewed PRD, product brief, or approved phase requirement.
+- Produces: feature definition that describes product behavior before page planning or ticket breakdown.
+- Locks: MVP features, later features, out-of-scope items, rules, states, permissions, edge cases, dependencies, and success signals.
+- Hard boundary: do not plan pages, UI layout, technical design, or tickets.
 
-# When To Use
+# Use When
+- the PRD is clear enough but feature behavior still needs definition.
+- MVP/Later/Out-of-scope boundaries need to be explicit.
+- business rules, permissions, states, or edge cases are not yet captured.
+# Decision Rules
+- A feature is product behavior, not a page, component, or implementation task.
+- MVP must be smaller than the full vision and aligned to P0/P1 decisions.
+- For each MVP feature, define user action, product behavior, business rule, state, permission, edge case, dependency, and success signal.
+- Flag unclear behavior as an open question rather than producing false certainty.
+# Output Contract
 
-Use this skill when the user asks to:
-
-- define product features from a PRD or brief
-- clarify MVP scope before design or engineering breakdown
-- split a broad product idea into capabilities, business rules, and states
-- identify missing rules, permissions, dependencies, or edge cases
-- prepare input for page planning, UX flows, or development tickets
-
-Do not use this skill to write the PRD from scratch. Use a PRD or brief as input when possible.
-
-# Workflow
-
-1. Identify the core user problem, target users, and product goal from the input.
-2. Extract candidate features and merge duplicates.
-3. Separate features into `MVP`, `Later`, and `Out of Scope`.
-4. For each MVP feature, define:
-   - user action
-   - product behavior
-   - business rules
-   - permissions or roles
-   - states
-   - edge cases
-   - dependencies
-   - success metric or observable signal
-5. Flag unclear requirements as questions instead of inventing details.
-6. Call out scope risks and tradeoffs explicitly.
-
-# Required Inputs
-
-Ask only for missing information that materially changes the feature definition:
-
-- product or feature goal
-- target users or roles
-- PRD, brief, or problem statement
-- MVP deadline or scope constraint, if any
-- known technical, policy, data, or design constraints
-- existing features or systems the work must integrate with
-
-# Output Format
-
-Use this structure:
+Use Korean-first headings with English in parentheses for user-facing output.
 
 ```markdown
-# Feature Definition
+# 기능 정의서 (Feature Definition)
 
-## Context
+## 맥락 (Context)
 
-## MVP Features
+## MVP 기능 (MVP Features)
 
-### <Feature Name>
-- User action:
-- Product behavior:
-- Business rules:
-- Permissions / roles:
-- States:
-- Edge cases:
-- Dependencies:
-- Success signal:
+### <기능명 (Feature Name)>
+- 사용자 행동 (User Action):
+- 제품 동작 (Product Behavior):
+- 비즈니스 규칙 (Business Rules):
+- 권한 / 역할 (Permissions / Roles):
+- 상태 (States):
+- 예외 케이스 (Edge Cases):
+- 의존성 (Dependencies):
+- 성공 신호 (Success Signal):
 
-## Later Features
+## 이후 기능 (Later Features)
 
-## Out of Scope
+## 범위 제외 (Out of Scope)
 
-## Scope Risks
+## 범위 리스크 (Scope Risks)
 
-## Open Questions
+## 열린 질문 (Open Questions)
 
-## Recommended Next Skill
+## 다음 추천 스킬 (Recommended Next Skill)
 ```
 
-Set `Recommended Next Skill` to `page-flow-planner` when the feature definition is ready for page and flow planning. Set it to `prd-writer` or `prd-reviewer` if the input is still too vague.
-
+# Handoff Gate
+- Continue to page-flow-planner when MVP feature behavior and states are clear.
+- Route back to prd-writer or prd-reviewer when the PRD cannot support stable feature boundaries.
 # Quality Bar
-
-- MVP scope must be smaller than the complete vision.
-- Features must describe behavior, not just UI components.
-- Business rules must be testable.
-- States must include meaningful product states such as empty, partial, completed, blocked, error, expired, or permission-limited when relevant.
-- Permissions must be called out when roles or access levels matter.
-- Every unclear assumption must appear under `Open Questions` or be explicitly marked as an assumption.
-
-# Common Pitfalls
-
-- Do not convert every idea into MVP scope.
-- Do not define pages before the feature behavior is clear.
-- Do not hide risky dependencies inside generic wording.
-- Do not use vague labels like "dashboard feature" without describing user action and system behavior.
-- Do not create development tickets yet; use `spec-to-tickets` after page/flow planning.
+- The output must let design and engineering understand behavior without guessing.
+- Do not promote every desirable feature into MVP.
+- Permissions and states must be explicit when relevant.

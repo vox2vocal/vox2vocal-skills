@@ -1,75 +1,58 @@
 ---
 name: pm-context
-description: Use as the brief-gathering gate before product management work when the product, user, problem, goal, constraints, success criteria, or evidence are incomplete. This skill frames context only and should not draft a PRD, review a spec, split tickets, or prioritize a roadmap.
+description: Use as the PRD-readiness gate when a phase, feature, or product idea needs a concise brief with user, problem, goal, evidence, constraints, assumptions, risks, and next skill.
 ---
 
-# Purpose
+# Pipeline Role
 
-Collect the minimum viable product brief before PM work begins. Clarify what is known, what is assumed, what is risky, and which PM skill should run next.
+- Receives: phase-plan PRD candidate, product idea, stakeholder request, or fuzzy feature request.
+- Produces: product brief that determines whether PRD writing can start.
+- Locks: target user, problem, goal, evidence, constraints, success criteria, assumptions, and risks for one PRD candidate.
+- Hard boundary: do not draft the PRD, define full feature behavior, pages, tickets, or TRD.
 
-# When To Use
+# Use When
+- the user asks for PRD/product help but the brief is not yet build-ready.
+- a phase plan has selected a PRD candidate and needs a focused brief.
+- the prompt mixes user problem, solution, business goal, and constraints.
+# Decision Rules
+- Ask only 3-5 questions that change scope, success metrics, or build/no-build decisions.
+- Separate user pain from stakeholder preference and evidence from opinion.
+- If a proposed solution is not justified by the problem, name the gap.
+- Mark unknowns as assumptions or open questions; do not fill them with confident guesses.
+# Output Contract
 
-Use this skill when a user asks for PM help but the brief is still fuzzy, missing evidence, or mixing goals, solutions, and constraints. Use it before `prd-writer`, `prd-reviewer`, `spec-to-tickets`, or `roadmap-prioritizer` when the next step is not obvious.
+Use Korean-first headings with English in parentheses for user-facing output.
 
-Do not use this skill to produce a full PRD, implementation ticket set, roadmap ranking, or final decision.
+```markdown
+# 제품 브리프 (Product Brief)
 
-# Workflow
+## 브리프 요약 (Brief Summary)
 
-1. Extract the product or feature, target users, problem, goals, constraints, success criteria, and current evidence from the prompt.
-2. Ask only 3-5 high-leverage questions when required context is missing. Prioritize questions that change scope, success metrics, or build/no-build decisions.
-3. Challenge the brief like a PM: separate user pain from stakeholder preference, outcome from output, and evidence from opinion.
-4. If information is unavailable, do not invent it. Mark it under `Assumptions` or `Open risks`.
-5. Recommend the next skill based on the work implied by the brief.
+## 대상 사용자 (Target Users)
 
-# Required Inputs
+## 문제 (Problem)
 
-- Product, feature, initiative, or decision area
-- Target user or customer segment
-- User problem or business problem
-- Desired outcome or goal
-- Constraints such as deadline, platform, team capacity, compliance, dependencies, or launch scope
-- Success criteria or available metrics
-- Current evidence such as customer quotes, analytics, sales input, research, support tickets, or prior experiments
+## 목표 (Goal)
 
-# Output Format
+## 성공 기준 (Success Criteria)
 
-## Brief
-- Product or feature:
-- Target users:
-- Problem:
-- Goal:
-- Constraints:
-- Success criteria:
+## 제약 조건 (Constraints)
 
-## Known Facts
-- Fact:
-- Evidence/source:
+## 확인된 사실 (Known Facts)
 
-## Assumptions
-- Assumption:
-- Why it matters:
+## 가정 (Assumptions)
 
-## Risks
-- Risk:
-- Impact:
-- Mitigation or question:
+## 리스크 (Risks)
 
-## Recommended Next Skill
-- Skill:
-- Reason:
+## PRD 작성 전 질문 (Questions Before PRD)
 
+## 다음 추천 스킬 (Recommended Next Skill)
+```
+
+# Handoff Gate
+- Continue to prd-writer when user, problem, goal, success criteria, and constraints are explicit enough.
+- Route back to phase-planner when the PRD candidate is too broad or not aligned to MVP/P0.
 # Quality Bar
-
-- Keep questions to 3-5 unless the user explicitly asks for deeper discovery.
-- Surface tradeoffs, metric gaps, open questions, and evidence gaps.
-- Do not overfit to the proposed solution before the problem is clear.
-- Use the user's language unless they ask otherwise.
-- Keep the output short enough to be a handoff note.
-
-# Common Pitfalls
-
-- Writing a PRD too early.
-- Accepting stakeholder urgency as proof of user or business impact.
-- Treating a solution request as a validated problem.
-- Hiding uncertainty instead of naming assumptions.
-- Asking many generic questions instead of the few questions that change the decision.
+- The brief must be short enough to serve as PRD input.
+- A PRD should not start if the user, problem, or success criteria are missing.
+- Do not let the requested solution replace problem definition.

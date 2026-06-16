@@ -1,83 +1,59 @@
 ---
 name: spec-to-tickets
-description: Use when the user wants to decompose an existing PRD, product spec, or requirements document into implementation-ready Markdown ticket drafts with epics, stories, acceptance criteria, edge cases, tests, dependencies, and build order. Do not create Jira, Linear, or GitHub issues directly.
+description: Use to turn approved PRD, feature/page plan, TRD, and risk checks into Markdown development ticket drafts with build order, acceptance criteria, tests, dependencies, and traceability.
 ---
 
-# Purpose
+# Pipeline Role
 
-Convert a PRD or spec into developer-ready Markdown ticket drafts without touching external tracking systems. Keep each story scoped, testable, and small enough for implementation planning.
+- Receives: approved PRD, feature definition, page/flow plan, TRD, API/data contracts, and risk check.
+- Produces: Markdown ticket drafts ready for Jira, Linear, GitHub Issues, or manual engineering intake.
+- Locks: epics, stories, acceptance criteria, edge cases, test scenarios, dependencies, traceability, and suggested build order.
+- Hard boundary: do not create issues in external tools unless explicitly asked; do not change product or technical scope.
 
-# When To Use
+# Use When
+- PRD and TRD are reviewed enough to break down work.
+- the team needs implementation tickets with product and technical traceability.
+- feature/page behavior and technical approach are stable.
+# Decision Rules
+- Every ticket should trace to PRD requirement and, when relevant, TRD section.
+- Split stories that mix unrelated behavior, risk areas, or ownership boundaries.
+- Acceptance criteria must be testable and include negative/error states when relevant.
+- Build order should respect dependencies, risk reduction, and validation path.
+# Output Contract
 
-Use this skill when the user asks to break down a PRD, turn a spec into tickets, create engineering stories, draft epics, or plan implementation slices.
+Use Korean-first headings with English in parentheses for user-facing output.
 
-Do not use this skill to write the original PRD, review the PRD's product strategy, or directly create tickets in Jira, Linear, GitHub, or other systems.
+```markdown
+# 개발 티켓 초안 (Development Ticket Drafts)
 
-# Workflow
+## 에픽 (Epic)
 
-1. Read the spec and identify user flows, system behaviors, platforms, data requirements, dependencies, rollout needs, and acceptance criteria.
-2. Challenge ambiguous or oversized work. Split large stories and leave unclear stories as questions instead of inventing requirements.
-3. Create an epic that states the outcome and scope boundary.
-4. Draft stories in implementation-sized units. Each story should let a developer estimate, build, and test the work with minimal extra interpretation.
-5. Add acceptance criteria, edge cases, test scenarios, dependencies, and suggested build order.
-6. Surface product tradeoffs, delivery risks, metric gaps, and open questions that may change scope.
+## 스토리 (Stories)
 
-# Required Inputs
+### 스토리 (Story): <제목 (Title)>
+- 목적 (Purpose):
+- PRD 추적성 (PRD Traceability):
+- TRD 추적성 (TRD Traceability):
+- 구현 범위 (Implementation Scope):
+- 제외 범위 (Out of Scope):
 
-- PRD, feature spec, or requirements document
-- Target platform or surface area
-- Known technical or design dependencies
-- Release constraints, if any
-- Testing or quality expectations, if known
+## 인수 조건 (Acceptance Criteria)
 
-# Output Format
+## 예외 케이스 (Edge Cases)
 
-## Epic
-- Title:
-- Objective:
-- Scope:
-- Out of scope:
+## 테스트 시나리오 (Test Scenarios)
 
-## Stories
-### Story: <title>
-- User or system need:
-- Description:
-- Notes:
+## 의존성 (Dependencies)
 
-## Acceptance Criteria
-- Given:
-- When:
-- Then:
+## 권장 빌드 순서 (Suggested Build Order)
 
-## Edge Cases
-- Case:
-- Expected behavior:
+## 열린 질문 (Open Questions)
+```
 
-## Test Scenarios
-- Scenario:
-- Test type:
-
-## Dependencies
-- Dependency:
-- Owner or status:
-
-## Suggested Build Order
-1. Step:
-2. Step:
-3. Step:
-
+# Handoff Gate
+- Continue to roadmap-prioritizer when ticket groups or phases need sequencing.
+- Route back to PRD/TRD skills if tickets require new scope or unresolved design decisions.
 # Quality Bar
-
-- Each story must be independently understandable and reasonably estimable.
-- Acceptance criteria must be observable and testable.
-- Split stories that contain multiple user flows, platforms, or backend/frontend concerns when that improves delivery clarity.
-- Keep external-system-specific fields generic unless the user names a tracker format.
-- Do not create issues through tools or APIs.
-
-# Common Pitfalls
-
-- Copying PRD paragraphs into tickets without creating buildable units.
-- Creating stories that are too large to estimate.
-- Hiding unclear requirements inside vague acceptance criteria.
-- Forgetting edge cases, error states, permissions, analytics, rollout, and migration work.
-- Imposing technical architecture that the spec does not require.
+- Tickets must be implementation-ready without silently changing PRD/TRD scope.
+- Traceability matters as much as task clarity.
+- Do not create giant tickets that hide validation, risk, or dependency work.
