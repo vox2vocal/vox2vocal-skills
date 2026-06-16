@@ -45,7 +45,7 @@ scripts/install-git-policy-hooks.sh
 커밋 요청이 있으면 `vox2vocal-agent-skills` repo 안에서만 커밋하고 푸시합니다. 커밋 메시지는 Vox2Vocal Git 정책을 따릅니다.
 
 ```text
-type(scope): 한글 제목
+type(scope): [TICKET] 한글 제목
 
 - 한글 bullet body
 ```
@@ -60,5 +60,7 @@ trd-skills
 docs
 ci
 ```
+
+작업은 `type/TICKET-short-summary` 형식의 ticket branch에서 진행하고 PR을 생성합니다.
 
 커밋 author와 committer는 항상 `gitbyul <gitbyul@gmail.com>`이어야 합니다.

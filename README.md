@@ -82,7 +82,7 @@ scripts/install-git-policy-hooks.sh
 커밋 메시지는 Vox2Vocal 독립 repository 공통 정책을 따릅니다.
 
 ```text
-type(scope): 한글 제목
+type(scope): [TICKET] 한글 제목
 
 - 한글 bullet body
 ```
@@ -91,4 +91,10 @@ type(scope): 한글 제목
 
 ```text
 feat, fix, docs, chore, refactor, test, ci
+```
+
+작업은 ticket branch에서 진행하고 PR을 생성합니다.
+
+```text
+type/TICKET-short-summary
 ```

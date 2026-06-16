@@ -12,4 +12,3 @@ chmod +x .githooks/pre-push
 
 echo "Git policy hooks installed."
 echo "Configured local identity: gitbyul <gitbyul@gmail.com>"
-
