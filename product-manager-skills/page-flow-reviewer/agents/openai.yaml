@@ -1,0 +1,4 @@
+interface:
+  display_name: "Page Flow Reviewer"
+  short_description: "페이지 플로우의 서비스 분리, 상태, 흐름을 리뷰"
+  default_prompt: "Use $page-flow-reviewer to critically review this page and flow plan before TRD handoff."

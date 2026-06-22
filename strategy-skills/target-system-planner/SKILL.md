@@ -1,13 +1,13 @@
 ---
 name: target-system-planner
-description: Use to turn a product vision into a target system definition with roles, modules, workflows, data objects, permissions, integrations, boundaries, and PRD areas.
+description: Use to turn a product vision into a target system definition with service surfaces, roles, modules, workflows, data objects, permissions, integrations, boundaries, and PRD areas.
 ---
 
 # Pipeline Role
 
 - Receives: product vision, strategy, or a completed-system description.
 - Produces: target system definition that later phases, PRDs, TRDs, and tickets can slice from.
-- Locks: system boundaries, user roles, core modules, workflows, data objects, permissions, and integration points.
+- Locks: system boundaries, service surfaces, user roles, core modules, workflows, data objects, permissions, and integration points.
 - Hard boundary: do not decide MVP scope, write PRDs, design UI screens, or choose technical implementation.
 
 # Use When
@@ -16,9 +16,11 @@ description: Use to turn a product vision into a target system definition with r
 - phase planning needs a stable system boundary.
 # Decision Rules
 - Separate modules, workflows, data objects, and pages; do not collapse them into one list.
+- Separate service surfaces such as Admin Service, User App, Shared, or Cross-Service before page planning.
 - Map each core workflow to a user role and a product outcome.
 - Identify system boundaries before naming phases.
 - Keep technical service boundaries tentative unless already known.
+- If service ownership is unclear, mark it as an open question instead of blending admin and user app responsibilities.
 # Output Contract
 
 Use Korean-first headings with English in parentheses for user-facing output.
@@ -29,6 +31,8 @@ Use Korean-first headings with English in parentheses for user-facing output.
 ## 시스템 요약 (System Summary)
 
 ## 사용자 역할 (User Roles)
+
+## 서비스 영역 (Service Surfaces)
 
 ## 핵심 모듈 (Core Modules)
 
@@ -50,9 +54,10 @@ Use Korean-first headings with English in parentheses for user-facing output.
 ```
 
 # Handoff Gate
-- Continue to phase-planner when modules, roles, workflows, data objects, and boundaries are coherent.
+- Continue to phase-planner when service surfaces, modules, roles, workflows, data objects, and boundaries are coherent.
 - Route back to product-vision-writer when the completed user experience is still vague.
 # Quality Bar
 - The system definition must prevent later PRDs from inventing new boundaries without discussion.
+- Admin Service, User App, Shared, and Cross-Service responsibilities must be visible when relevant.
 - Data and permission ambiguity must be visible.
 - Avoid technical architecture unless it is a known constraint.
