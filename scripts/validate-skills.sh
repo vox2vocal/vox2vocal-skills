@@ -45,7 +45,9 @@ validate_skill_file() {
   local folder_name
   local rel_dir
   local depth
+  local parent_dir
   local group_name
+  local category_name
   local first_line
   local closing_line
   local fm
@@ -57,7 +59,9 @@ validate_skill_file() {
   folder_name="$(basename "$skill_dir")"
   rel_dir="${skill_dir#./}"
   depth="$(awk -F/ '{ print NF }' <<< "$rel_dir")"
-  group_name="$(dirname "$rel_dir")"
+  parent_dir="$(dirname "$rel_dir")"
+  group_name="$(basename "$parent_dir")"
+  category_name="$(dirname "$parent_dir")"
 
   first_line="$(sed -n '1p' "$skill_file")"
   [ "$first_line" = "---" ] || die "$skill_file must start with YAML frontmatter delimiter."
@@ -65,12 +69,16 @@ validate_skill_file() {
   closing_line="$(awk 'NR > 1 && $0 == "---" { print NR; exit }' "$skill_file")"
   [ -n "$closing_line" ] || die "$skill_file must close YAML frontmatter with ---."
 
-  if [ "$depth" -gt 2 ]; then
-    die "$skill_file is too deeply nested. Use skill-name/SKILL.md or group-skills/skill-name/SKILL.md."
+  if [ "$depth" -gt 3 ]; then
+    die "$skill_file is too deeply nested. Use skill-name/SKILL.md, group-skills/skill-name/SKILL.md, or category/group-skills/skill-name/SKILL.md."
   fi
 
-  if [ "$depth" -eq 2 ] && ! printf '%s\n' "$group_name" | grep -Eq '^[a-z0-9][a-z0-9-]*-skills$'; then
+  if [ "$depth" -ge 2 ] && ! printf '%s\n' "$group_name" | grep -Eq '^[a-z0-9][a-z0-9-]*-skills$'; then
     die "$skill_file group folder must be lowercase kebab-case ending in -skills."
+  fi
+
+  if [ "$depth" -eq 3 ] && ! printf '%s\n' "$category_name" | grep -Eq '^[a-z0-9][a-z0-9-]*$'; then
+    die "$skill_file category folder must be lowercase kebab-case."
   fi
 
   fm="$(mktemp)"
@@ -86,9 +94,9 @@ validate_skill_file() {
     die "$skill_file must have exactly one frontmatter description field."
   fi
 
-  if grep -Evq '^(name|description): .+$' "$fm"; then
+  if grep -Evq '^(name|description|user-invocable|allowed-tools): .+$' "$fm"; then
     rm -f "$fm"
-    die "$skill_file frontmatter must contain only name and description fields."
+    die "$skill_file frontmatter must contain only supported fields: name, description, user-invocable, allowed-tools."
   fi
 
   name="$(read_frontmatter_value "name" "$skill_file")"
@@ -117,7 +125,7 @@ validate_skill_file() {
 }
 
 skill_files_file="$(mktemp)"
-find . -mindepth 2 -maxdepth 3 -type f -name SKILL.md | sort > "$skill_files_file"
+find . -mindepth 2 -maxdepth 4 -type f -name SKILL.md | sort > "$skill_files_file"
 
 skill_count="$(awk 'END { print NR + 0 }' "$skill_files_file")"
 [ "$skill_count" -gt 0 ] || {
