@@ -4,17 +4,18 @@
 
 ## Scope
 
-이 저장소는 Vox2Vocal 제품 기획 파이프라인용 Codex skill folder를 관리합니다.
+이 저장소는 Vox2Vocal 제품 기획과 개발 지원용 Codex skill folder를 관리합니다.
 
+- `development/frontend-ui-skills/`: shadcn/ui 등 프론트엔드 UI 개발 skill
 - `strategy-skills/`: 사업 맥락, 제품 전략, 제품 비전, 목표 시스템, 페이즈 계획
-- `product-manager-skills/`: 제품 브리프, PRD, 기능 정의, 페이지/플로우, 티켓, 로드맵
+- `product-manager-skills/`: 제품 브리프, PRD, 기능 정의/검토, 페이지/플로우 기획/검토, 티켓, 로드맵
 - `trd-skills/`: PRD-to-TRD bridge, TRD 작성/리뷰, API/data contract, technical risk
 - `product-planning-skill-flow-guide.md`: 전략에서 PRD/TRD/티켓까지 이어지는 권장 흐름
 
 ## Skill Rules
 
-1. 각 skill은 `group-skills/skill-name/SKILL.md` 구조로 둡니다.
-2. `SKILL.md` frontmatter는 `name`과 `description`만 둡니다.
+1. 각 skill은 `group-skills/skill-name/SKILL.md` 구조로 둡니다. 도메인 구분이 필요하면 `category/group-skills/skill-name/SKILL.md` 구조를 사용합니다.
+2. `SKILL.md` frontmatter는 기본적으로 `name`과 `description`만 둡니다. 공식 외부 skill을 vendoring할 때만 `user-invocable`, `allowed-tools` 같은 원본 metadata를 보존할 수 있습니다.
 3. `name`은 skill folder name과 정확히 일치해야 합니다.
 4. `name`과 folder name은 lowercase kebab-case를 사용합니다.
 5. `description`에는 trigger context와 skill의 책임 경계를 함께 적습니다.
@@ -55,6 +56,7 @@ type(scope): [TICKET] 한글 제목
 ```text
 skills
 strategy-skills
+frontend-ui-skills
 pm-skills
 trd-skills
 docs
