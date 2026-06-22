@@ -13,7 +13,8 @@
 -> 기능 / 페이지 흐름
 -> API / 데이터 계약
 -> TRD
--> 티켓 / 로드맵
+-> 티켓
+-> 선택: 로드맵 우선순위
 ```
 
 각 단계는 이전 단계의 결정을 바꾸지 않고 더 구체화합니다. 만약 다음 단계에서 이전 결정이 흔들리면 앞으로 밀지 말고 해당 단계로 되돌아갑니다.
@@ -37,9 +38,8 @@
 14. api-data-contract-planner
 15. trd-writer
 16. trd-reviewer
-17. technical-risk-checker
-18. spec-to-tickets
-19. roadmap-prioritizer
+17. spec-to-tickets
+18. roadmap-prioritizer (무엇을 먼저 만들지 판단해야 할 때만)
 ```
 
 ## 문서 계층 (Document Hierarchy)
@@ -58,14 +58,116 @@
 | TRD | 기술 요구사항 문서 (TRD) | 어떻게 안전하게 구현할 것인가? |
 | 티켓 (Tickets) | 개발 티켓 초안 (Ticket Drafts) | 개발자가 어떤 순서로 구현할 것인가? |
 
+문서 범위:
+
+- Product-Level Docs: `business-context`, `product-strategy`, `product-vision-writer`, `target-system-planner`, `phase-planner`
+- Domain-Level Docs: 특정 기능/도메인 단위 문서입니다. 예: `account-permission`, `song-catalog`, `recording`, `preview-generation`, `voice-analysis`, `deletion-retention`, `notification`
+
+Product-Level Docs는 제품의 중심과 전략 기준을 관리합니다. Domain-Level Docs는 특정 기능/도메인의 실행 문서를 관리합니다.
+
+## 문서 관리 규칙 (Document Management Rules)
+
+권장 파일명:
+
+```text
+<도메인번호>_<스킬순번>_<제품명>-<도메인>-<문서종류>.md
+```
+
+예:
+
+```text
+00_01_vox2vocal-business-context.md
+00_02_vox2vocal-product-strategy.md
+00_03_vox2vocal-product-vision.md
+00_04_vox2vocal-target-system-definition.md
+00_05_vox2vocal-phase-plan.md
+
+01_01_vox2vocal-account-permission-prd-brief.md
+01_02_vox2vocal-account-permission-prd.md
+01_03_vox2vocal-account-permission-prd-review.md
+01_04_vox2vocal-account-permission-feature-definition.md
+01_05_vox2vocal-account-permission-feature-definition-review.md
+01_06_vox2vocal-account-permission-page-flow-plan.md
+01_07_vox2vocal-account-permission-page-flow-review.md
+01_08_vox2vocal-account-permission-prd-to-trd-bridge.md
+01_09_vox2vocal-account-permission-api-data-contract.md
+01_10_vox2vocal-account-permission-trd.md
+01_11_vox2vocal-account-permission-trd-review.md
+01_12_vox2vocal-account-permission-ticket-drafts.md
+```
+
+번호 규칙:
+
+- `00`은 제품 전체 foundation 문서에 사용합니다.
+- `01`부터는 기능/도메인 단위 문서에 사용합니다.
+- 스킬순번은 전역 번호가 아니라 해당 도메인 안에서의 문서 작성 흐름 순서입니다.
+- 도메인번호와 스킬순번은 두 자리 zero-padding을 사용합니다.
+- 제품명, 도메인명, 문서종류는 영어 소문자 kebab-case를 사용합니다.
+
+권장 도메인번호:
+
+| 번호 | 도메인 |
+|---|---|
+| `00` | product-foundation |
+| `01` | account-permission |
+| `02` | song-catalog |
+| `03` | recording |
+| `04` | preview-generation |
+| `05` | voice-analysis |
+| `06` | deletion-retention |
+| `07` | notification |
+| `08` | admin-operations |
+| `09` | observability-audit |
+
+도메인번호는 한 번 부여하면 가능하면 변경하지 않습니다. 이미 작성된 문서를 대규모 rename해야 할 경우에는 사용자의 명시적 요청이 있을 때만 진행합니다.
+
+문서 상단 메타데이터:
+
+```text
+문서 번호:
+문서 버전:
+작성일:
+상태:
+범위:
+적용 skill:
+도메인:
+스킬 단계:
+기반 문서:
+```
+
+기반 문서에는 반드시 파일명과 문서 버전을 함께 기록합니다.
+
+```text
+- pm/01_02_vox2vocal-account-permission-prd.md v0.5
+- pm/01_04_vox2vocal-account-permission-feature-definition.md v0.2
+```
+
+버전 규칙:
+
+- `v0.1`: 최초 초안
+- `v0.2`: 리뷰 반영
+- `v0.3`: 주요 결정 반영
+- `v0.4+`: 다음 단계 handoff 전 안정화
+- `v1.0`: 구현 기준으로 lock
+
+각 문서는 변경 이력 (Change Log)을 포함합니다.
+
+```markdown
+| 버전 | 날짜 | 변경 내용 |
+|---|---|---|
+| v0.1 | 2026-06-22 | 최초 초안 작성 |
+| v0.2 | 2026-06-22 | reviewer 지적사항 반영 |
+```
+
 ## 사용 원칙 (Operating Principles)
 
 - 산출물의 큰 제목은 항상 `한글 (English)` 형식으로 작성합니다.
 - 각 단계는 `잠그는 결정 (Locked Decision)`이 있어야 합니다.
 - 모르는 정보는 지어내지 말고 `가정 (Assumptions)` 또는 `열린 질문 (Open Questions)`에 남깁니다.
+- 사용자가 이미 결정한 내용은 다시 묻지 말고 `Known Facts` 또는 `Decisions`로 고정합니다.
 - PRD는 제품 결정 문서이고, TRD는 기술 결정 문서입니다.
 - 복수 서비스, 권한/세션, 삭제/보관, audit/logging, worker/job, file/media, push/notification, migration/indexing이 관련되면 TRD 전에 API/data contract를 먼저 잠급니다.
-- 티켓은 PRD와 TRD가 검토된 뒤 작성합니다.
+- 티켓은 PRD와 TRD가 검토된 뒤 Markdown 초안으로만 작성합니다.
 - 모든 스킬은 다음 스킬로 넘어갈 수 있는지 `다음 추천 스킬 (Recommended Next Skill)`을 남기게 합니다.
 
 ## 서비스 영역 기준 (Service Surface Guideline)
@@ -96,9 +198,20 @@
 - `feature-definition-reviewer`: 기능 정의가 page-flow-planner로 내려갈 수 있는지 검토합니다.
 - `page-flow-reviewer`: 페이지/플로우가 prd-to-trd-bridge로 내려갈 수 있는지 검토합니다.
 - `prd-to-trd-bridge`: TRD로 바로 갈지, API/data contract를 먼저 잠글지 판단합니다.
-- `trd-reviewer`: TRD가 contract plan을 반영했고 risk, ticket 단계로 내려갈 수 있는지 검토합니다.
+- `trd-reviewer`: TRD가 contract plan을 반영했고 ticket 단계로 내려갈 수 있는지 검토합니다.
 
 리뷰 결과는 `Go`, `Revise`, `No-go` 중 하나로 끝내고, blocker가 있으면 다음 단계로 밀지 않습니다.
+
+Gate 규칙:
+
+- PRD Review: `Go` 또는 `Revise with minor fixes`
+- Feature Definition Review: `Go`
+- Page Flow Review: `Go`
+- PRD-to-TRD Bridge: `Go with clear TRD blockers`
+- API/Data Contract Review: `Go` 또는 `Revise with bounded fixes`
+- TRD Review: `Go` 또는 `Revise with bounded fixes`
+
+reviewer skill은 기본적으로 별도 review 문서를 만들지 않습니다. 기본 산출은 `Verdict`, `Critical Issues`, `Recommended Fixes`, `Questions Before Next Step`, `Go / Revise / No-go`, `Recommended Next Skill`이며, 후속 writer/planner skill이 이를 본문에 반영합니다. 별도 review 파일은 장기 보존 가치가 있거나 사용자가 명시적으로 요청할 때만 만듭니다.
 
 ## 단계별 사용법 (How To Use Each Skill)
 
@@ -679,15 +792,15 @@ rollback weakness, performance risks, insufficient test strategy를 확인해줘
 - blocker가 있으면 `trd-writer`로 돌아간다.
 - API/data contract가 약하거나 TRD에 반영되지 않았으면 `api-data-contract-planner` 또는 `trd-writer`로 돌아간다.
 
-### 17. technical-risk-checker
+### 선택. technical-risk-checker
 
-기술 리스크를 점검합니다.
+기술 리스크를 점검합니다. 표준 PM/TRD 흐름의 필수 단계가 아니라, 사용자가 명시적으로 요청했거나 데이터 손실, 권한 우회, 마이그레이션 실패, 성능 병목, 관측성 누락, 안전하지 않은 rollout/rollback 리스크가 큰 경우에만 사용합니다.
 
 사용할 때:
 
-- TRD 리뷰 이후
-- 데이터, 권한, 마이그레이션, 성능, 롤백, 관측성 리스크가 있을 때
-- 티켓 생성 전 최종 risk gate가 필요할 때
+- 사용자가 final risk pass를 명시적으로 요청했을 때
+- 데이터, 권한, 마이그레이션, 성능, 롤백, 관측성 리스크가 크거나 불명확할 때
+- 티켓 생성 전에 별도 risk gate가 필요하다고 판단될 때
 
 프롬프트:
 
@@ -713,7 +826,7 @@ blocking 여부를 정리해줘.
 - 필요한 테스트와 모니터링이 정의되어 있다.
 - 롤아웃/롤백 준비도가 확인된다.
 
-### 18. spec-to-tickets
+### 17. spec-to-tickets
 
 PRD와 TRD를 기준으로 개발 티켓 초안을 만듭니다.
 
@@ -749,8 +862,8 @@ TRD:
 API/Data Contract Plan:
 <api-data-contract-planner 결과가 있으면 붙여넣기>
 
-기술 리스크 점검:
-<technical-risk-checker 결과 붙여넣기>
+선택 기술 리스크 점검:
+<technical-risk-checker 결과가 있으면 붙여넣기>
 
 산출물의 큰 제목은 한글 (English) 형식으로 작성해줘.
 아직 Jira, Linear, GitHub issue에는 직접 생성하지 마.
@@ -766,9 +879,9 @@ review gate에서 발견된 blocker 반영 여부를 포함해줘.
 - acceptance criteria와 test scenarios가 있다.
 - build order가 의존성과 리스크를 반영한다.
 
-### 19. roadmap-prioritizer
+### 18. roadmap-prioritizer
 
-여러 phase, feature, ticket group의 우선순위를 정합니다.
+여러 phase, feature, ticket group의 우선순위를 정합니다. 표준 문서 작성 흐름의 의무 단계가 아니라, “무엇을 먼저 만들까?”가 실제 문제일 때만 사용합니다.
 
 사용할 때:
 
@@ -844,6 +957,13 @@ prd-to-trd-bridge
 -> api-data-contract-planner
 -> trd-writer
 -> trd-reviewer
+-> spec-to-tickets
+```
+
+고위험 변경이라 별도 risk pass가 필요한 경우:
+
+```text
+trd-reviewer
 -> technical-risk-checker
 -> spec-to-tickets
 ```
@@ -863,7 +983,6 @@ prd-reviewer
 -> feature-definition-reviewer
 -> page-flow-reviewer
 -> trd-reviewer
--> technical-risk-checker
 -> spec-to-tickets
 ```
 
@@ -895,7 +1014,7 @@ phase-planner
 | API/DB 계약이 구현하기에 부족함 | api-data-contract-planner |
 | API owner, auth context, data object, event schema, migration/indexing이 불명확함 | api-data-contract-planner |
 | TRD의 구현/롤백/테스트 전략이 약함 | trd-writer |
-| blocking technical risk가 있음 | technical-risk-checker |
+| 선택 risk pass에서 blocking technical risk가 있음 | technical-risk-checker |
 
 ## 최종 품질 체크리스트 (Final Quality Checklist)
 
@@ -904,6 +1023,8 @@ phase-planner
 - 제품 비전이 여러 PRD를 묶을 수 있을 만큼 선명한가?
 - 목표 시스템이 역할, 모듈, 워크플로우, 데이터, 권한을 설명하는가?
 - 페이즈가 MVP/P0/P1/P2와 종료 기준을 구분하는가?
+- 모든 문서가 문서 번호, 버전, 상태, 범위, 적용 skill, 도메인, 스킬 단계, 기반 문서를 기록하는가?
+- 기반 문서가 파일명과 문서 버전을 함께 기록하는가?
 - PRD가 문제, 목표, 비목표, 성공 지표, 범위, 인수 조건을 포함하는가?
 - 기능 정의가 사용자 행동, 제품 동작, 규칙, 권한, 상태를 설명하는가?
 - 기능 정의 리뷰가 PRD 추적성, MVP 범위, 상태/권한/예외 누락을 잡았는가?
@@ -913,5 +1034,5 @@ phase-planner
 - API/data contract가 validation, error, auth, compatibility를 포함하는가?
 - 복수 서비스, 권한/세션, 삭제/보관, audit, worker/job, file/media, push, migration/indexing 변경이 TRD 전에 contract로 잠겼는가?
 - TRD가 PRD 요구사항과 API/data/event 계약을 추적하고 구현/관측성/롤백/테스트를 설명하는가?
-- technical risk가 mitigation, tests, monitoring으로 이어지는가?
+- 고위험 변경이면 technical risk가 mitigation, tests, monitoring으로 이어지는가?
 - 티켓이 PRD와 TRD를 모두 기준으로 작성되는가?
