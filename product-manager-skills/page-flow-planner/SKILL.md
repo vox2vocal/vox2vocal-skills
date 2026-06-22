@@ -44,7 +44,7 @@ description: Use to turn Domain-Level feature definitions into service-surface-s
 - Keep interaction surface decisions separate from visual design and technical architecture.
 # Output Contract
 
-Use Korean-first headings with English in parentheses for user-facing output.
+Use Korean-first headings and important domain/technical terms with English in parentheses for user-facing output. Example: 감사 이벤트 (AuditEvent), 접근 결정 로그 (AccessDecisionLog), 트랜잭션 아웃박스 (TransactionalOutbox).
 
 ```markdown
 # 인터랙션 표면 / 플로우 기획 (Interaction Surface / Flow Plan)

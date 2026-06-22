@@ -40,7 +40,7 @@ description: Use to critically review a Domain-Level feature definition for PRD 
 
 # Output Contract
 
-Use Korean-first headings with English in parentheses for user-facing output.
+Use Korean-first headings and important domain/technical terms with English in parentheses for user-facing output. Example: 감사 이벤트 (AuditEvent), 접근 결정 로그 (AccessDecisionLog), 트랜잭션 아웃박스 (TransactionalOutbox).
 
 ```markdown
 # 기능 정의 리뷰 (Feature Definition Review)

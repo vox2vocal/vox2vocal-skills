@@ -36,7 +36,7 @@ description: Use to convert reviewed Domain-Level PRD, feature definition, and p
 - Separate TRD blockers from recommended decision options; do not silently promote an option into a final technical choice.
 # Output Contract
 
-Use Korean-first headings with English in parentheses for user-facing output.
+Use Korean-first headings and important domain/technical terms with English in parentheses for user-facing output. Example: 감사 이벤트 (AuditEvent), 접근 결정 로그 (AccessDecisionLog), 트랜잭션 아웃박스 (TransactionalOutbox).
 
 ```markdown
 # PRD-TRD 연결 (PRD to TRD Bridge)

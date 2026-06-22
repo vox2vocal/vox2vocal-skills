@@ -31,7 +31,7 @@ description: Use only after PRD/TRD are sufficiently clear and reviewed to turn 
 - Do not invent missing product or technical decisions; route back to the relevant PRD/TRD skill.
 # Output Contract
 
-Use Korean-first headings with English in parentheses for user-facing output.
+Use Korean-first headings and important domain/technical terms with English in parentheses for user-facing output. Example: 감사 이벤트 (AuditEvent), 접근 결정 로그 (AccessDecisionLog), 트랜잭션 아웃박스 (TransactionalOutbox).
 
 ```markdown
 # 개발 티켓 초안 (Development Ticket Drafts)

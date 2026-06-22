@@ -31,7 +31,7 @@ description: Use for the Product-Level foundation business-context document befo
 - Do not invent market evidence, buyer intent, metrics, or constraints.
 # Output Contract
 
-Use Korean-first headings with English in parentheses for user-facing output.
+Use Korean-first headings and important domain/technical terms with English in parentheses for user-facing output. Example: 감사 이벤트 (AuditEvent), 접근 결정 로그 (AccessDecisionLog), 트랜잭션 아웃박스 (TransactionalOutbox).
 
 ```markdown
 # 사업 맥락 (Business Context)

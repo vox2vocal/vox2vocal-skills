@@ -34,13 +34,13 @@ description: Use before trd-writer, or when a TRD review finds gaps, to lock Dom
 - Include validation, error cases, auth/permission, and compatibility.
 - Include reads/writes, side effects, idempotency, retries, and transaction/outbox expectations when behavior crosses service boundaries.
 - Call out migration safety, indexing, existing records, and old clients when relevant.
-- For account, permission, and deletion-blocking work, explicitly check contract objects such as `StatusOnlyAccessGrant`, `ProtectedResourceCatalog`, `TokenRevocationLedger`, `TransactionalOutbox`, and `AccessDecisionLog` when they are relevant.
+- For account, permission, audit, and deletion-blocking work, explicitly check contract objects with Korean labels plus canonical identifiers when relevant, such as 상태 전용 접근 권한 (StatusOnlyAccessGrant), 보호 리소스 카탈로그 (ProtectedResourceCatalog), 토큰 폐기 원장 (TokenRevocationLedger), 트랜잭션 아웃박스 (TransactionalOutbox), 접근 결정 로그 (AccessDecisionLog), and 감사 이벤트 (AuditEvent).
 - For deletion-blocking work, model non-typical resources such as `media_fetch`, `queued_job`, `running_job`, `push_send_target`, and `signed URL` instead of treating only REST endpoints as resources.
 - Apply the same contract rigor to song catalog, recording, preview generation, voice analysis, notification, admin operations, and observability/audit domains.
 - Do not invent fields without explaining their purpose.
 # Output Contract
 
-Use Korean-first headings with English in parentheses for user-facing output.
+Use Korean-first headings and important domain/technical terms with English in parentheses for user-facing output. Example: 감사 이벤트 (AuditEvent), 접근 결정 로그 (AccessDecisionLog), 트랜잭션 아웃박스 (TransactionalOutbox).
 
 ```markdown
 # API / 데이터 계약 계획 (API / Data Contract Plan)

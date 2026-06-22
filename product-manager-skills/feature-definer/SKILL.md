@@ -32,7 +32,7 @@ description: Use to turn an approved Domain-Level PRD into feature definitions w
 - Keep product behavior separate from UI surface or technical implementation.
 # Output Contract
 
-Use Korean-first headings with English in parentheses for user-facing output.
+Use Korean-first headings and important domain/technical terms with English in parentheses for user-facing output. Example: 감사 이벤트 (AuditEvent), 접근 결정 로그 (AccessDecisionLog), 트랜잭션 아웃박스 (TransactionalOutbox).
 
 ```markdown
 # 기능 정의서 (Feature Definition)

@@ -32,7 +32,7 @@ description: Use to critically review a Domain-Level TRD for PRD coverage, archi
 - Reviewers should challenge the document hard enough that ticket drafting can rely on it.
 # Output Contract
 
-Use Korean-first headings with English in parentheses for user-facing output.
+Use Korean-first headings and important domain/technical terms with English in parentheses for user-facing output. Example: 감사 이벤트 (AuditEvent), 접근 결정 로그 (AccessDecisionLog), 트랜잭션 아웃박스 (TransactionalOutbox).
 
 ```markdown
 # TRD 리뷰 (TRD Review)
