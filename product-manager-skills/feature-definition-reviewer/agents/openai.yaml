@@ -1,0 +1,4 @@
+interface:
+  display_name: "Feature Definition Reviewer"
+  short_description: "기능 정의서 범위, 동작, 상태를 비판적으로 검토"
+  default_prompt: "Use $feature-definition-reviewer to critically review this feature definition before page flow planning."
