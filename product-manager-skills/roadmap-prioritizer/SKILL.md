@@ -31,7 +31,7 @@ description: Use only when the problem is deciding what to build first across ph
 - Do not turn prioritization into new product requirements or technical scope.
 # Output Contract
 
-Use Korean-first headings and important domain/technical terms with English in parentheses for user-facing output. Example: 감사 이벤트 (AuditEvent), 접근 결정 로그 (AccessDecisionLog), 트랜잭션 아웃박스 (TransactionalOutbox).
+Use Korean-first headings and write specialized terms and technical terms in Korean with English in parentheses for user-facing output. Example: 감사 이벤트 (AuditEvent), 접근 결정 로그 (AccessDecisionLog), 트랜잭션 아웃박스 (TransactionalOutbox).
 
 ```markdown
 # 로드맵 우선순위 (Roadmap Prioritization)

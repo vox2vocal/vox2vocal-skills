@@ -33,7 +33,7 @@ description: Use for the Product-Level target-system-definition document after p
 - Do not invent modules, permissions, or data objects when the product vision does not justify them.
 # Output Contract
 
-Use Korean-first headings and important domain/technical terms with English in parentheses for user-facing output. Example: 감사 이벤트 (AuditEvent), 접근 결정 로그 (AccessDecisionLog), 트랜잭션 아웃박스 (TransactionalOutbox).
+Use Korean-first headings and write specialized terms and technical terms in Korean with English in parentheses for user-facing output. Example: 감사 이벤트 (AuditEvent), 접근 결정 로그 (AccessDecisionLog), 트랜잭션 아웃박스 (TransactionalOutbox).
 
 ```markdown
 # 목표 시스템 정의 (Target System Definition)

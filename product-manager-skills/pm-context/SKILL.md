@@ -32,7 +32,7 @@ description: Use as the Domain-Level PRD-readiness gate before prd-writer when a
 - Reuse user-confirmed decisions as Known Facts or Decisions instead of asking again.
 # Output Contract
 
-Use Korean-first headings and important domain/technical terms with English in parentheses for user-facing output. Example: 감사 이벤트 (AuditEvent), 접근 결정 로그 (AccessDecisionLog), 트랜잭션 아웃박스 (TransactionalOutbox).
+Use Korean-first headings and write specialized terms and technical terms in Korean with English in parentheses for user-facing output. Example: 감사 이벤트 (AuditEvent), 접근 결정 로그 (AccessDecisionLog), 트랜잭션 아웃박스 (TransactionalOutbox).
 
 ```markdown
 # 제품 브리프 (Product Brief)

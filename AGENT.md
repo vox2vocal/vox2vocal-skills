@@ -20,7 +20,7 @@
 4. `name`과 folder name은 lowercase kebab-case를 사용합니다.
 5. `description`에는 trigger context와 skill의 책임 경계를 함께 적습니다.
 6. 개별 skill folder 안에는 `README.md`, `CHANGELOG.md`, `QUICK_REFERENCE.md`, `INSTALLATION_GUIDE.md` 같은 보조 문서를 두지 않습니다.
-7. 사용자-facing 산출물의 큰 제목과 주요 기술/도메인 용어는 `한글 (English)` 형식을 기본으로 합니다.
+7. 사용자-facing 산출물의 큰 제목, 전문용어, 기술용어는 `한글 (English)` 형식을 기본으로 합니다.
 8. 여러 skill을 가로지르는 흐름 문서는 저장소 루트 문서로 둡니다.
 
 ## PM/TRD Document Rules

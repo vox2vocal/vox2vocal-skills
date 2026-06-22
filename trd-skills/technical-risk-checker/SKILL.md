@@ -28,7 +28,7 @@ description: Optional TRD risk-pass skill, not part of the default PM/TRD docume
 - Translate risks into tests, monitoring, or TRD/ticket updates.
 # Output Contract
 
-Use Korean-first headings and important domain/technical terms with English in parentheses for user-facing output. Example: 감사 이벤트 (AuditEvent), 접근 결정 로그 (AccessDecisionLog), 트랜잭션 아웃박스 (TransactionalOutbox).
+Use Korean-first headings and write specialized terms and technical terms in Korean with English in parentheses for user-facing output. Example: 감사 이벤트 (AuditEvent), 접근 결정 로그 (AccessDecisionLog), 트랜잭션 아웃박스 (TransactionalOutbox).
 
 ```markdown
 # 기술 리스크 점검 (Technical Risk Check)
