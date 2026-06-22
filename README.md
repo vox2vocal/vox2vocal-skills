@@ -63,8 +63,8 @@ vox2vocal-agent-skills/
 | `prd-reviewer` | product-manager-skills | 기존 PRD나 요구사항 문서를 제품 관점에서 readiness review합니다. |
 | `feature-definer` | product-manager-skills | PRD를 MVP/Later/Out of Scope와 상태, 규칙, 예외가 있는 feature definition으로 바꿉니다. |
 | `feature-definition-reviewer` | product-manager-skills | feature definition의 PRD 추적성, MVP 범위, 동작, 상태, 권한, 예외를 비판적으로 검토합니다. |
-| `page-flow-planner` | product-manager-skills | feature definition이나 PRD를 서비스 영역별 page inventory, user flow, page states로 정리합니다. |
-| `page-flow-reviewer` | product-manager-skills | page flow의 관리자/사용자 앱 분리, 페이지-기능 커버리지, 상태, 연동 흐름을 리뷰합니다. |
+| `page-flow-planner` | product-manager-skills | feature definition이나 PRD를 서비스 영역별 interaction surface, user flow, states로 정리합니다. |
+| `page-flow-reviewer` | product-manager-skills | page flow의 관리자/사용자 앱 분리, surface type, 표면-기능 커버리지, 상태, 연동 흐름을 리뷰합니다. |
 | `roadmap-prioritizer` | product-manager-skills | 여러 feature, initiative, experiment 후보의 우선순위를 비교합니다. |
 | `spec-to-tickets` | product-manager-skills | PRD나 spec을 implementation-ready Markdown ticket draft로 분해합니다. |
 | `prd-to-trd-bridge` | trd-skills | PRD, feature definition, reviewed page flow를 서비스 영역별 TRD 작성 입력으로 변환합니다. |
