@@ -1,6 +1,6 @@
 ---
 name: prd-writer
-description: Use to write an engineering-handoff-ready PRD from a product brief, phase candidate, feature request, customer problem, or discovery notes.
+description: Use to write a Domain-Level engineering-handoff-ready PRD from pm-context, a product brief, phase candidate, feature request, customer problem, or discovery notes with goals, non-goals, scope, user stories, acceptance criteria, metrics, risks, dependencies, assumptions, and open questions.
 ---
 
 # Pipeline Role
@@ -9,6 +9,15 @@ description: Use to write an engineering-handoff-ready PRD from a product brief,
 - Produces: PRD that defines what to build and why, without deciding technical implementation.
 - Locks: problem, goals, non-goals, scope, requirements, acceptance criteria, metrics, risks, dependencies, assumptions, and open questions.
 - Hard boundary: do not define technical architecture, API schemas, database changes, or development tickets.
+
+# Document Rules
+- Treat this as a Domain-Level Doc and keep the assigned domain number stable.
+- Recommended filename: `<domain-number>_02_<product>-<domain>-prd.md`.
+- Start the document at the top with: `문서 번호`, `문서 버전`, `작성일`, `상태`, `범위`, `적용 skill`, `도메인`, `스킬 단계`, `기반 문서`.
+- `기반 문서`에는 반드시 파일명과 문서 버전을 함께 기록한다.
+- Use `v0.1`, `v0.2`, ... for document versions, not dates; use `v1.0` only when locked for implementation.
+- Record each base document as filename plus version, especially `prd-brief` and relevant product-level docs.
+- Include a Change Log table and keep Known Facts, Decisions, Assumptions, and Open Questions separate.
 
 # Use When
 - the user asks to draft, formalize, or refine a PRD.
@@ -19,6 +28,7 @@ description: Use to write an engineering-handoff-ready PRD from a product brief,
 - Separate goals from shipped artifacts and non-goals from later opportunities.
 - Requirements must describe observable product behavior, not implementation choices.
 - Success metrics should include baseline, target, and guardrail when possible; otherwise call out the metric gap.
+- Do not mix product requirements with technical decisions; route technical uncertainty to later bridge/TRD skills.
 # Output Contract
 
 Use Korean-first headings with English in parentheses for user-facing output.
@@ -56,6 +66,8 @@ Use Korean-first headings with English in parentheses for user-facing output.
 ## 가정 (Assumptions)
 
 ## 열린 질문 (Open Questions)
+
+## 변경 이력 (Change Log)
 
 ## 다음 추천 스킬 (Recommended Next Skill)
 ```

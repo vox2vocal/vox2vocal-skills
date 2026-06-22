@@ -1,6 +1,6 @@
 ---
 name: product-vision-writer
-description: Use to define the completed product vision and north-star experience before target-system planning, phase planning, PRD writing, or roadmap work.
+description: Use for the Product-Level product-vision document after product-strategy to define the completed product experience, target users, core jobs, north-star metric, product principles, anti-vision, and open questions before target-system planning; use domain number 00.
 ---
 
 # Pipeline Role
@@ -9,6 +9,15 @@ description: Use to define the completed product vision and north-star experienc
 - Produces: a product vision that describes the completed user outcome and product promise.
 - Locks: end-state user experience, core job to be done, north-star metric, product principles, and anti-vision.
 - Hard boundary: do not decompose into modules, phases, detailed features, pages, or technical architecture.
+
+# Document Rules
+- Treat this as a Product-Level Doc and use domain number `00`.
+- Recommended filename: `00_03_<product>-foundation-product-vision.md`.
+- Start the document at the top with: `문서 번호`, `문서 버전`, `작성일`, `상태`, `범위`, `적용 skill`, `도메인`, `스킬 단계`, `기반 문서`.
+- `기반 문서`에는 반드시 파일명과 문서 버전을 함께 기록한다.
+- Use `v0.1`, `v0.2`, ... for document versions, not dates; use `v1.0` only when locked as product vision reference.
+- Record each base document as filename plus version, especially `business-context` and `product-strategy`.
+- Include a Change Log table and keep Known Facts, Decisions, Assumptions, and Open Questions separate.
 
 # Use When
 - the user asks what the completed system/product should become.
@@ -19,6 +28,7 @@ description: Use to define the completed product vision and north-star experienc
 - Keep the vision broad enough to guide several phases but specific enough to reject bad scope.
 - Name what the product should not become to prevent strategy drift.
 - Do not call Phase 1 or MVP the full product vision.
+- Do not invent target users, product principles, or north-star metrics that are not supported by upstream decisions.
 # Output Contract
 
 Use Korean-first headings with English in parentheses for user-facing output.
@@ -41,6 +51,8 @@ Use Korean-first headings with English in parentheses for user-facing output.
 ## 되지 않을 것 (Anti-vision / Non-goals)
 
 ## 열린 질문 (Open Questions)
+
+## 변경 이력 (Change Log)
 
 ## 다음 추천 스킬 (Recommended Next Skill)
 ```

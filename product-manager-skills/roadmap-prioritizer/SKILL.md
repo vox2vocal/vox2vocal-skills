@@ -1,6 +1,6 @@
 ---
 name: roadmap-prioritizer
-description: Use to prioritize phases, initiatives, features, or ticket groups using product strategy, evidence, dependencies, risk, and validation needs.
+description: Use only when the problem is deciding what to build first across phases, initiatives, features, domains, or ticket groups; prioritize using product strategy, evidence, dependencies, risk, validation needs, and tradeoffs rather than producing PRD/TRD content.
 ---
 
 # Pipeline Role
@@ -9,6 +9,15 @@ description: Use to prioritize phases, initiatives, features, or ticket groups u
 - Produces: prioritized roadmap recommendation with rationale, tradeoffs, evidence gaps, risks, and validation steps.
 - Locks: recommended order and rationale for what to do first, next, later, or not now.
 - Hard boundary: do not rewrite strategy, PRD, TRD, or tickets; prioritize the candidates provided.
+
+# Document Rules
+- Use this only for prioritization, not as a mandatory step after every ticket draft.
+- For cross-domain prioritization, recommended filename: `00_06_<product>-foundation-roadmap-prioritization.md`.
+- For one-domain prioritization, recommended filename: `<domain-number>_09_<product>-<domain>-roadmap-prioritization.md`.
+- Start the document at the top with: `문서 번호`, `문서 버전`, `작성일`, `상태`, `범위`, `적용 skill`, `도메인`, `스킬 단계`, `기반 문서`.
+- `기반 문서`에는 반드시 파일명과 문서 버전을 함께 기록한다.
+- Record candidate source documents as filename plus version.
+- Include a Change Log table and keep evidence, assumptions, and tradeoffs separate.
 
 # Use When
 - the user needs ordering across multiple candidates.
@@ -19,6 +28,7 @@ description: Use to prioritize phases, initiatives, features, or ticket groups u
 - Prioritize explanation over false precision in scoring.
 - Separate evidence-backed impact from opinion, urgency, and stakeholder pressure.
 - Call out what should be validated before committing roadmap capacity.
+- Do not turn prioritization into new product requirements or technical scope.
 # Output Contract
 
 Use Korean-first headings with English in parentheses for user-facing output.
@@ -39,6 +49,8 @@ Use Korean-first headings with English in parentheses for user-facing output.
 ## 리스크 (Risks)
 
 ## 다음 검증 단계 (Next Validation Steps)
+
+## 변경 이력 (Change Log)
 ```
 
 # Handoff Gate

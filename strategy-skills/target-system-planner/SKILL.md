@@ -1,6 +1,6 @@
 ---
 name: target-system-planner
-description: Use to turn a product vision into a target system definition with service surfaces, roles, modules, workflows, data objects, permissions, integrations, boundaries, and PRD areas.
+description: Use for the Product-Level target-system-definition document after product-vision to map service surfaces, roles, modules, workflows, data objects, permissions, integrations, boundaries, and PRD candidate areas; use domain number 00.
 ---
 
 # Pipeline Role
@@ -9,6 +9,15 @@ description: Use to turn a product vision into a target system definition with s
 - Produces: target system definition that later phases, PRDs, TRDs, and tickets can slice from.
 - Locks: system boundaries, service surfaces, user roles, core modules, workflows, data objects, permissions, and integration points.
 - Hard boundary: do not decide MVP scope, write PRDs, design UI screens, or choose technical implementation.
+
+# Document Rules
+- Treat this as a Product-Level Doc and use domain number `00`.
+- Recommended filename: `00_04_<product>-foundation-target-system-definition.md`.
+- Start the document at the top with: `문서 번호`, `문서 버전`, `작성일`, `상태`, `범위`, `적용 skill`, `도메인`, `스킬 단계`, `기반 문서`.
+- `기반 문서`에는 반드시 파일명과 문서 버전을 함께 기록한다.
+- Use `v0.1`, `v0.2`, ... for document versions, not dates; use `v1.0` only when locked as system reference.
+- Record each base document as filename plus version, especially `product-vision`.
+- Include a Change Log table and keep Known Facts, Decisions, Assumptions, and Open Questions separate.
 
 # Use When
 - the completed product needs to become a coherent system map.
@@ -21,6 +30,7 @@ description: Use to turn a product vision into a target system definition with s
 - Identify system boundaries before naming phases.
 - Keep technical service boundaries tentative unless already known.
 - If service ownership is unclear, mark it as an open question instead of blending admin and user app responsibilities.
+- Do not invent modules, permissions, or data objects when the product vision does not justify them.
 # Output Contract
 
 Use Korean-first headings with English in parentheses for user-facing output.
@@ -49,6 +59,8 @@ Use Korean-first headings with English in parentheses for user-facing output.
 ## PRD 후보 영역 (PRD Candidate Areas)
 
 ## 열린 질문 (Open Questions)
+
+## 변경 이력 (Change Log)
 
 ## 다음 추천 스킬 (Recommended Next Skill)
 ```

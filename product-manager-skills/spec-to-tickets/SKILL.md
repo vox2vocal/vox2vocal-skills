@@ -1,6 +1,6 @@
 ---
 name: spec-to-tickets
-description: Use to turn approved PRD, feature/page plan, TRD, and risk checks into Markdown development ticket drafts with build order, acceptance criteria, tests, dependencies, and traceability.
+description: Use only after PRD/TRD are sufficiently clear and reviewed to turn approved Domain-Level PRD, feature/page plan, TRD, and API/data contracts into Markdown development ticket drafts with epics, stories, acceptance criteria, edge cases, tests, dependencies, traceability, and suggested build order; do not create Jira, Linear, or GitHub issues.
 ---
 
 # Pipeline Role
@@ -9,6 +9,15 @@ description: Use to turn approved PRD, feature/page plan, TRD, and risk checks i
 - Produces: Markdown ticket drafts ready for Jira, Linear, GitHub Issues, or manual engineering intake.
 - Locks: epics, stories, acceptance criteria, edge cases, test scenarios, dependencies, traceability, and suggested build order.
 - Hard boundary: do not create issues in external tools unless explicitly asked; do not change product or technical scope.
+
+# Document Rules
+- Treat this as a Domain-Level Doc and keep the assigned domain number stable.
+- Recommended filename: `<domain-number>_08_<product>-<domain>-ticket-drafts.md`.
+- Start the document at the top with: `문서 번호`, `문서 버전`, `작성일`, `상태`, `범위`, `적용 skill`, `도메인`, `스킬 단계`, `기반 문서`.
+- `기반 문서`에는 반드시 파일명과 문서 버전을 함께 기록한다.
+- Use `v0.1`, `v0.2`, ... for document versions, not dates.
+- Record every base PRD/TRD/API-data contract/review document as filename plus version.
+- Include a Change Log table and write the base document filename/version on each epic or story where traceability matters.
 
 # Use When
 - PRD and TRD are reviewed enough to break down work.
@@ -19,6 +28,7 @@ description: Use to turn approved PRD, feature/page plan, TRD, and risk checks i
 - Split stories that mix unrelated behavior, risk areas, or ownership boundaries.
 - Acceptance criteria must be testable and include negative/error states when relevant.
 - Build order should respect dependencies, risk reduction, and validation path.
+- Do not invent missing product or technical decisions; route back to the relevant PRD/TRD skill.
 # Output Contract
 
 Use Korean-first headings with English in parentheses for user-facing output.
@@ -48,10 +58,12 @@ Use Korean-first headings with English in parentheses for user-facing output.
 ## 권장 빌드 순서 (Suggested Build Order)
 
 ## 열린 질문 (Open Questions)
+
+## 변경 이력 (Change Log)
 ```
 
 # Handoff Gate
-- Continue to roadmap-prioritizer when ticket groups or phases need sequencing.
+- Continue to roadmap-prioritizer only when the open question is "what should be built first?" across multiple ticket groups, features, or initiatives.
 - Route back to PRD/TRD skills if tickets require new scope or unresolved design decisions.
 # Quality Bar
 - Tickets must be implementation-ready without silently changing PRD/TRD scope.

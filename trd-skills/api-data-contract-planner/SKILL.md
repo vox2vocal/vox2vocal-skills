@@ -1,6 +1,6 @@
 ---
 name: api-data-contract-planner
-description: Use before trd-writer, or when a TRD review finds gaps, to lock API/data/service contracts including endpoint owners, request/response shapes, auth context, reads/writes, validation, errors, compatibility, schema changes, migrations, indexes, events, analytics, worker/job, media/file, permission, deletion, audit, retention, and cross-service data responsibilities.
+description: Use before trd-writer, or when a TRD review finds gaps, to lock Domain-Level API/data/service contracts including endpoint owners, request/response shapes, auth context, reads/writes, validation, errors, compatibility, schema changes, migrations, indexes, events, analytics, worker/job, media/file, permission, deletion, audit, retention, and cross-service data responsibilities.
 ---
 
 # Pipeline Role
@@ -9,6 +9,15 @@ description: Use before trd-writer, or when a TRD review finds gaps, to lock API
 - Produces: API and data contract plan that becomes required input for TRD writing or ticket breakdown.
 - Locks: endpoint owners, endpoint contracts, request/response shapes, auth context, reads/writes, validation, errors, compatibility, data model, migration, indexes, events/analytics, and cross-service resource boundaries.
 - Hard boundary: do not redesign the whole architecture or decide product scope.
+
+# Document Rules
+- Treat this as a Domain-Level Doc and keep the assigned domain number stable.
+- Recommended filename: `<domain-number>_06_<product>-<domain>-api-data-contract.md`.
+- Start the document at the top with: `문서 번호`, `문서 버전`, `작성일`, `상태`, `범위`, `적용 skill`, `도메인`, `스킬 단계`, `기반 문서`.
+- `기반 문서`에는 반드시 파일명과 문서 버전을 함께 기록한다.
+- Use `v0.1`, `v0.2`, ... for document versions, not dates; use `v1.0` only when locked for TRD/ticket implementation.
+- Record each base bridge, PRD, feature definition, page-flow plan, and existing TRD as filename plus version.
+- Include a Change Log table and keep Known Facts, Decisions, Assumptions, Open Questions, and Open Contract Questions separate.
 
 # Use When
 - API, database, event, or analytics changes are part of the work.
@@ -27,6 +36,7 @@ description: Use before trd-writer, or when a TRD review finds gaps, to lock API
 - Call out migration safety, indexing, existing records, and old clients when relevant.
 - For account, permission, and deletion-blocking work, explicitly check contract objects such as `StatusOnlyAccessGrant`, `ProtectedResourceCatalog`, `TokenRevocationLedger`, `TransactionalOutbox`, and `AccessDecisionLog` when they are relevant.
 - For deletion-blocking work, model non-typical resources such as `media_fetch`, `queued_job`, `running_job`, `push_send_target`, and `signed URL` instead of treating only REST endpoints as resources.
+- Apply the same contract rigor to song catalog, recording, preview generation, voice analysis, notification, admin operations, and observability/audit domains.
 - Do not invent fields without explaining their purpose.
 # Output Contract
 
@@ -65,11 +75,15 @@ Use Korean-first headings with English in parentheses for user-facing output.
 
 ## 열린 계약 질문 (Open Contract Questions)
 
+## 계약 준비도 (Contract Readiness)
+
+## 변경 이력 (Change Log)
+
 ## 다음 추천 스킬 (Recommended Next Skill)
 ```
 
 # Handoff Gate
-- Continue to trd-writer once endpoint owners, auth context, request/response shapes, reads/writes, error behavior, event schemas, migration/indexing, and compatibility constraints are concrete enough to cite.
+- Continue to trd-writer when contract readiness is Go or Revise-with-bounded-fixes and endpoint owners, auth context, request/response shapes, reads/writes, error behavior, event schemas, migration/indexing, and compatibility constraints are concrete enough to cite.
 - Continue to trd-reviewer only after the TRD has absorbed the contract plan.
 - Route back to product skills when contract questions reveal unclear product behavior.
 - Route back to prd-to-trd-bridge when service ownership or technical impact areas are still too broad to assign contracts.

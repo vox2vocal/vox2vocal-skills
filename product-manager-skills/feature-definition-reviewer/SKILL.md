@@ -1,6 +1,6 @@
 ---
 name: feature-definition-reviewer
-description: Use to critically review a feature definition or feature-definer output for PRD traceability, service surface separation, MVP scope control, behavior clarity, business rules, states, permissions, edge cases, dependencies, measurable success signals, and readiness before page-flow-planner.
+description: Use to critically review a Domain-Level feature definition for PRD traceability, service surface separation, MVP scope control, behavior clarity, business rules, states, permissions, edge cases, dependencies, measurable success signals, and readiness before page-flow-planner; produce review results by default, not a separate review file unless requested.
 ---
 
 # Pipeline Role
@@ -9,6 +9,14 @@ description: Use to critically review a feature definition or feature-definer ou
 - Produces: readiness review with blockers, scope risks, behavior gaps, fixes, questions, and Go/Revise/No-go recommendation.
 - Locks: whether feature behavior is stable enough to proceed to page-flow-planner or TRD preparation.
 - Hard boundary: do not rewrite the full feature definition unless explicitly asked; do not plan pages, UI layout, technical design, or tickets.
+
+# Document Rules
+- Treat review output as feedback for the source feature definition by default; create a separate review document only when the user asks or long-term preservation is useful.
+- If persisted, use filename `<domain-number>_03_<product>-<domain>-feature-definition-review.md`.
+- Start the review at the top with: `문서 번호`, `문서 버전`, `작성일`, `상태`, `범위`, `적용 skill`, `도메인`, `스킬 단계`, `기반 문서`.
+- `기반 문서`에는 반드시 파일명과 문서 버전을 함께 기록한다.
+- Record the reviewed feature definition and PRD as filename plus version.
+- Include a Change Log table when creating a persisted review artifact.
 
 # Use When
 
@@ -28,6 +36,7 @@ description: Use to critically review a feature definition or feature-definer ou
 - Separate missing behavior from weak wording: missing states, permissions, edge cases, dependencies, or measurement are usually blockers before page planning.
 - Challenge MVP inflation: desirable, speculative, or unvalidated features should move to Later or Out of Scope.
 - Classify each issue by severity and explain product, design, or delivery impact.
+- Reviewers should challenge the document hard enough that the next writer/planner can safely revise it.
 
 # Output Contract
 
@@ -38,32 +47,22 @@ Use Korean-first headings with English in parentheses for user-facing output.
 
 ## 판정 (Verdict)
 
-## 차단 이슈 (Blocking Issues)
-
-## 범위 검토 (Scope Review)
-
-## 서비스 영역 검토 (Service Surface Review)
-
-## PRD 추적성 (PRD Traceability)
-
-## 동작 / 규칙 커버리지 (Behavior / Rule Coverage)
-
-## 상태 / 권한 / 예외 검토 (States / Permissions / Edge Cases)
-
-## 의존성 / 성공 신호 (Dependencies / Success Signals)
+## 핵심 이슈 (Critical Issues)
 
 ## 권장 수정사항 (Recommended Fixes)
 
-## 페이지 기획 전 질문 (Questions Before Page Planning)
+## 다음 단계 전 질문 (Questions Before Next Step)
 
 ## 진행 / 수정 / 중단 (Go / Revise / No-go)
+
+## 변경 이력 (Change Log)
 
 ## 다음 추천 스킬 (Recommended Next Skill)
 ```
 
 # Handoff Gate
 
-- Continue to page-flow-planner only when verdict is Go or Revise-with-minor-fixes and MVP feature behavior is stable.
+- Continue to page-flow-planner only when verdict is Go and MVP feature behavior is stable.
 - Route back to feature-definer when feature boundaries, service surface, behavior, rules, states, permissions, edge cases, dependencies, or success signals need material revision.
 - Route back to prd-reviewer or prd-writer when the PRD cannot support stable feature boundaries.
 - Route back to phase-planner when MVP/P0 scope is too broad or phase sequencing is unstable.

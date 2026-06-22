@@ -1,6 +1,6 @@
 ---
 name: page-flow-reviewer
-description: Use to critically review a page/flow plan or page-flow-planner output for interaction surface type choices, service surface separation, Admin Service vs User App boundaries, surface-feature coverage, states, navigation, data needs, cross-service handoffs, UX risks, and readiness before prd-to-trd-bridge.
+description: Use to critically review a Domain-Level interaction surface/flow plan for surface type choices, service surface separation, Admin Service vs User App boundaries, surface-feature coverage, states, navigation, data needs, cross-service handoffs, UX risks, and readiness before prd-to-trd-bridge; produce review results by default, not a separate review file unless requested.
 ---
 
 # Pipeline Role
@@ -9,6 +9,14 @@ description: Use to critically review a page/flow plan or page-flow-planner outp
 - Produces: page-flow readiness review with blockers, surface separation risks, coverage gaps, fixes, questions, and Go/Revise/No-go recommendation.
 - Locks: whether the page/flow plan can proceed to prd-to-trd-bridge without losing service ownership or user journey clarity.
 - Hard boundary: do not rewrite the full page plan unless explicitly asked; do not create visual mockups, final UI style, TRD, or tickets.
+
+# Document Rules
+- Treat review output as feedback for the source page/flow plan by default; create a separate review document only when the user asks or long-term preservation is useful.
+- If persisted, use filename `<domain-number>_04_<product>-<domain>-page-flow-review.md`.
+- Start the review at the top with: `문서 번호`, `문서 버전`, `작성일`, `상태`, `범위`, `적용 skill`, `도메인`, `스킬 단계`, `기반 문서`.
+- `기반 문서`에는 반드시 파일명과 문서 버전을 함께 기록한다.
+- Record the reviewed page/flow plan, feature definition, and PRD as filename plus version.
+- Include a Change Log table when creating a persisted review artifact.
 
 # Use When
 
@@ -31,6 +39,7 @@ description: Use to critically review a page/flow plan or page-flow-planner outp
 - Check empty, loading, error, permission, alternate, and edge flows with the same seriousness as the happy path.
 - Cross-service handoffs must name trigger, source surface, destination surface, handoff data, failure states, and permission states.
 - Treat visual styling, component choices, and implementation details as secondary unless they expose a product or flow risk.
+- Reviewers should challenge the document hard enough that prd-to-trd-bridge can rely on service ownership and flow clarity.
 
 # Output Contract
 
@@ -41,32 +50,22 @@ Use Korean-first headings with English in parentheses for user-facing output.
 
 ## 판정 (Verdict)
 
-## 차단 이슈 (Blocking Issues)
-
-## 서비스 영역 분리 검토 (Service Surface Separation Review)
-
-## 표면 타입 판단 검토 (Surface Type Decision Review)
-
-## 표면 / 기능 커버리지 (Surface / Feature Coverage)
-
-## 상태 / 권한 / 내비게이션 검토 (States / Permissions / Navigation Review)
-
-## 공통 / 연동 플로우 검토 (Shared / Cross-Service Flow Review)
-
-## 데이터 / 성공 신호 검토 (Data / Success Signal Review)
+## 핵심 이슈 (Critical Issues)
 
 ## 권장 수정사항 (Recommended Fixes)
 
-## TRD 전 질문 (Questions Before TRD)
+## 다음 단계 전 질문 (Questions Before Next Step)
 
 ## 진행 / 수정 / 중단 (Go / Revise / No-go)
+
+## 변경 이력 (Change Log)
 
 ## 다음 추천 스킬 (Recommended Next Skill)
 ```
 
 # Handoff Gate
 
-- Continue to prd-to-trd-bridge only when verdict is Go or Revise-with-minor-fixes and service surface separation is clear.
+- Continue to prd-to-trd-bridge only when verdict is Go and service surface separation is clear.
 - Route back to page-flow-planner when surface type decisions, states, navigation, data needs, or cross-service handoffs need material revision.
 - Route back to feature-definition-reviewer or feature-definer when feature behavior or service surface ownership is unclear.
 - Route back to target-system-planner when Admin Service, User App, Shared, or Cross-Service boundaries are not stable.

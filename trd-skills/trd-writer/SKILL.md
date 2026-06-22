@@ -1,6 +1,6 @@
 ---
 name: trd-writer
-description: Use to write a Technical Requirements Document from a PRD-to-TRD bridge, PRD, feature plan, technical input package, and API/data contract plan; for multi-service, permission/session, deletion/retention, audit, worker/job, file/media, push, migration, or indexing work, use api-data-contract-planner first unless contracts are already sufficiently clear.
+description: Use to write a Domain-Level Technical Requirements Document from a PRD-to-TRD bridge, PRD, feature/page plan, and API/data contract plan; for multi-service, permission/session, deletion/retention, audit, worker/job, file/media, push, migration, or indexing work, use api-data-contract-planner first unless contracts are already sufficiently clear.
 ---
 
 # Pipeline Role
@@ -9,6 +9,15 @@ description: Use to write a Technical Requirements Document from a PRD-to-TRD br
 - Produces: TRD that explains how to implement the PRD safely and measurably.
 - Locks: technical approach, architecture decisions, subsystem changes, integrated API/data contract references, permissions, observability, rollout, rollback, tests, risks, and alternatives.
 - Hard boundary: do not rewrite product requirements or create tickets before review.
+
+# Document Rules
+- Treat this as a Domain-Level Doc and keep the assigned domain number stable.
+- Recommended filename: `<domain-number>_07_<product>-<domain>-trd.md`.
+- Start the document at the top with: `문서 번호`, `문서 버전`, `작성일`, `상태`, `범위`, `적용 skill`, `도메인`, `스킬 단계`, `기반 문서`.
+- `기반 문서`에는 반드시 파일명과 문서 버전을 함께 기록한다.
+- Use `v0.1`, `v0.2`, ... for document versions, not dates; use `v1.0` only when locked for implementation.
+- Record each base bridge, PRD, feature/page plan, API-data contract, and review result as filename plus version.
+- Include a Change Log table and keep Known Facts, Decisions, Assumptions, and Open Technical Questions separate.
 
 # Use When
 - product requirements are stable enough for technical design.
@@ -23,6 +32,7 @@ description: Use to write a Technical Requirements Document from a PRD-to-TRD br
 - Include rollout, rollback, observability, and test strategy when production behavior changes.
 - Base Test Plan, Observability, and Security Considerations on the contract plan when one exists.
 - State alternatives considered when there is a meaningful architectural tradeoff.
+- Do not invent unknown architecture, API behavior, data objects, metrics, or rollout constraints; leave them in Open Technical Questions.
 # Output Contract
 
 Use Korean-first headings with English in parentheses for user-facing output.
@@ -61,6 +71,8 @@ Use Korean-first headings with English in parentheses for user-facing output.
 ## 검토한 대안 (Alternatives Considered)
 
 ## 열린 기술 질문 (Open Technical Questions)
+
+## 변경 이력 (Change Log)
 
 ## 다음 추천 스킬 (Recommended Next Skill)
 ```

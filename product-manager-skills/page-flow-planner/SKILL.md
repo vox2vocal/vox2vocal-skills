@@ -1,6 +1,6 @@
 ---
 name: page-flow-planner
-description: Use to turn feature definitions into service-surface-separated interaction surface plans, deciding whether each user touchpoint should be a Page, Modal, Drawer, Sheet, Popover, Inline Panel, Toast, or Wizard, with user flows, navigation, states, data needs, CTAs, cross-service handoffs, and surface-feature mapping before design or ticket breakdown.
+description: Use to turn Domain-Level feature definitions into service-surface-separated interaction surface/flow plans, deciding whether each touchpoint should be a Page, Modal, Drawer, Sheet, Popover, Inline Panel, Toast, or Wizard, with user flows, navigation, states, data needs, CTAs, cross-service handoffs, and surface-feature mapping before page-flow-reviewer.
 ---
 
 # Pipeline Role
@@ -9,6 +9,15 @@ description: Use to turn feature definitions into service-surface-separated inte
 - Produces: interaction surface and flow plan that separates Admin Service, User App, Shared, and Cross-Service flows.
 - Locks: service surface split, interaction surface type, primary flows, alternate flows, required data, states, navigation, and surface-feature matrix.
 - Hard boundary: do not create visual mockups, choose final UI style, write TRD, or create tickets.
+
+# Document Rules
+- Treat this as a Domain-Level Doc and keep the assigned domain number stable.
+- Recommended filename: `<domain-number>_04_<product>-<domain>-page-flow-plan.md`.
+- Start the document at the top with: `문서 번호`, `문서 버전`, `작성일`, `상태`, `범위`, `적용 skill`, `도메인`, `스킬 단계`, `기반 문서`.
+- `기반 문서`에는 반드시 파일명과 문서 버전을 함께 기록한다.
+- Use `v0.1`, `v0.2`, ... for document versions, not dates; use `v1.0` only when locked for implementation/design reference.
+- Record each base document as filename plus version, especially feature definition and feature definition review.
+- Include a Change Log table and keep Known Facts, Decisions, Assumptions, and Open Questions separate.
 
 # Use When
 - feature behavior is clear and needs to become screens/pages and flows.
@@ -32,6 +41,7 @@ description: Use to turn feature definitions into service-surface-separated inte
 - Prefer fewer pages with clear states over unnecessary page sprawl.
 - Do not hide critical empty, loading, error, or permission states.
 - If the service surface is unclear, ask an open question rather than silently assigning a page.
+- Keep interaction surface decisions separate from visual design and technical architecture.
 # Output Contract
 
 Use Korean-first headings with English in parentheses for user-facing output.
@@ -115,6 +125,8 @@ Use Korean-first headings with English in parentheses for user-facing output.
 ## UX 리스크 (UX Risks)
 
 ## 열린 질문 (Open Questions)
+
+## 변경 이력 (Change Log)
 
 ## 다음 추천 스킬 (Recommended Next Skill)
 ```

@@ -1,6 +1,6 @@
 ---
 name: technical-risk-checker
-description: Use to audit TRD or implementation plans for data loss, auth bypass, migration failure, performance bottlenecks, missing observability, unsafe rollout, weak rollback, and untested edge cases.
+description: Optional TRD risk-pass skill, not part of the default PM/TRD document flow; use when the user asks for a final risk audit or when TRD/implementation plans involve data loss, auth bypass, migration failure, performance bottlenecks, missing observability, unsafe rollout, weak rollback, or untested edge cases.
 ---
 
 # Pipeline Role
@@ -9,6 +9,13 @@ description: Use to audit TRD or implementation plans for data loss, auth bypass
 - Produces: technical risk matrix with mitigations, tests, monitoring, rollout/rollback readiness, and recommendation.
 - Locks: blocking risks, required mitigations, required tests, required monitoring, and rollout/rollback readiness.
 - Hard boundary: do not rewrite TRD or create tickets unless asked; produce risk decisions that feed those documents.
+
+# Document Rules
+- Treat this as an optional risk artifact, not a standard domain sequence step.
+- Do not renumber existing domain documents to insert this artifact unless the user explicitly asks.
+- When persisted, ask whether to keep the risk check inline or assign an explicit document number for the domain.
+- Record each base TRD, API-data contract, and release plan as filename plus version.
+- Include a Change Log table when creating a persisted risk artifact.
 
 # Use When
 - TRD review is complete or nearly complete.
