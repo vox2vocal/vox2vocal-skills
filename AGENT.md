@@ -9,7 +9,7 @@
 - `development/frontend-ui-skills/`: shadcn/ui 등 프론트엔드 UI 개발 skill
 - `strategy-skills/`: 사업 맥락, 제품 전략, 제품 비전, 목표 시스템, 페이즈 계획
 - `product-manager-skills/`: 제품 브리프, PRD, 기능 정의/검토, 페이지/플로우 기획/검토, 티켓, 로드맵
-- `trd-skills/`: PRD-to-TRD bridge, TRD 작성/리뷰, API/data contract, technical risk
+- `trd-skills/`: PRD-to-TRD bridge, TRD 전 API/data contract, TRD 작성/리뷰, technical risk
 - `product-planning-skill-flow-guide.md`: 전략에서 PRD/TRD/티켓까지 이어지는 권장 흐름
 
 ## Skill Rules

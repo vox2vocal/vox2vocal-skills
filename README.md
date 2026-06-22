@@ -30,9 +30,9 @@ vox2vocal-agent-skills/
     spec-to-tickets/
   trd-skills/
     prd-to-trd-bridge/
+    api-data-contract-planner/
     trd-writer/
     trd-reviewer/
-    api-data-contract-planner/
     technical-risk-checker/
 ```
 
@@ -44,7 +44,7 @@ vox2vocal-agent-skills/
 
 `product-manager-skills/`는 제품 brief 수집, PRD 작성/검토, MVP feature 정의/검토, page flow planning/review, roadmap prioritization, ticket draft 생성을 담당합니다.
 
-`trd-skills/`는 PRD를 기술 계획으로 넘기는 bridge, TRD 작성/검토, API/data contract 계획, technical risk 점검을 담당합니다.
+`trd-skills/`는 PRD를 기술 계획으로 넘기는 bridge, TRD 전 API/data contract 계획, TRD 작성/검토, technical risk 점검을 담당합니다.
 
 전체 제품 기획 흐름은 `product-planning-skill-flow-guide.md`를 기준으로 봅니다.
 
@@ -67,10 +67,10 @@ vox2vocal-agent-skills/
 | `page-flow-reviewer` | product-manager-skills | page flow의 관리자/사용자 앱 분리, surface type, 표면-기능 커버리지, 상태, 연동 흐름을 리뷰합니다. |
 | `roadmap-prioritizer` | product-manager-skills | 여러 feature, initiative, experiment 후보의 우선순위를 비교합니다. |
 | `spec-to-tickets` | product-manager-skills | PRD나 spec을 implementation-ready Markdown ticket draft로 분해합니다. |
-| `prd-to-trd-bridge` | trd-skills | PRD, feature definition, reviewed page flow를 서비스 영역별 TRD 작성 입력으로 변환합니다. |
-| `trd-writer` | trd-skills | PRD 또는 bridge 결과를 engineering-ready TRD로 작성합니다. |
-| `trd-reviewer` | trd-skills | TRD나 technical design의 architecture, contract, rollout, test gap을 리뷰합니다. |
-| `api-data-contract-planner` | trd-skills | API, data model, migration, event, analytics contract를 구체화합니다. |
+| `prd-to-trd-bridge` | trd-skills | PRD, feature definition, reviewed page flow를 서비스 영역별 TRD 입력과 contract-first routing으로 변환합니다. |
+| `api-data-contract-planner` | trd-skills | TRD 작성 전에 API owner, auth context, data model, migration, event, worker/media contract를 구체화합니다. |
+| `trd-writer` | trd-skills | PRD, bridge 결과, 필요한 API/data contract plan을 기반으로 engineering-ready TRD를 작성합니다. |
+| `trd-reviewer` | trd-skills | TRD나 technical design의 architecture, contract 반영, rollout, test gap을 리뷰합니다. |
 | `technical-risk-checker` | trd-skills | TRD, implementation plan, release plan의 기술 리스크와 mitigation을 점검합니다. |
 
 ## Validation

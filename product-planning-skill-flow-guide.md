@@ -11,6 +11,7 @@
 -> 페이즈 / MVP / P0
 -> PRD
 -> 기능 / 페이지 흐름
+-> API / 데이터 계약
 -> TRD
 -> 티켓 / 로드맵
 ```
@@ -33,9 +34,9 @@
 11. page-flow-planner
 12. page-flow-reviewer
 13. prd-to-trd-bridge
-14. trd-writer
-15. trd-reviewer
-16. api-data-contract-planner
+14. api-data-contract-planner
+15. trd-writer
+16. trd-reviewer
 17. technical-risk-checker
 18. spec-to-tickets
 19. roadmap-prioritizer
@@ -53,6 +54,7 @@
 | PRD | 제품 요구사항 문서 (PRD) | 이번에 무엇을 만들고 무엇은 만들지 않는가? |
 | 기능 (Feature) | 기능 정의서 (Feature Definition) | MVP 기능은 어떤 동작과 규칙을 갖는가? |
 | 화면 (Page) | 인터랙션 표면 / 플로우 기획 (Interaction Surface / Flow Plan) | 각 서비스 영역에서 사용자는 어떤 표면과 흐름으로 완료하는가? |
+| 계약 (Contract) | API / 데이터 계약 계획 (API / Data Contract Plan) | 어떤 서비스가 어떤 API, 데이터, 이벤트, 권한 계약을 지키는가? |
 | TRD | 기술 요구사항 문서 (TRD) | 어떻게 안전하게 구현할 것인가? |
 | 티켓 (Tickets) | 개발 티켓 초안 (Ticket Drafts) | 개발자가 어떤 순서로 구현할 것인가? |
 
@@ -62,6 +64,7 @@
 - 각 단계는 `잠그는 결정 (Locked Decision)`이 있어야 합니다.
 - 모르는 정보는 지어내지 말고 `가정 (Assumptions)` 또는 `열린 질문 (Open Questions)`에 남깁니다.
 - PRD는 제품 결정 문서이고, TRD는 기술 결정 문서입니다.
+- 복수 서비스, 권한/세션, 삭제/보관, audit/logging, worker/job, file/media, push/notification, migration/indexing이 관련되면 TRD 전에 API/data contract를 먼저 잠급니다.
 - 티켓은 PRD와 TRD가 검토된 뒤 작성합니다.
 - 모든 스킬은 다음 스킬로 넘어갈 수 있는지 `다음 추천 스킬 (Recommended Next Skill)`을 남기게 합니다.
 
@@ -92,7 +95,8 @@
 - `prd-reviewer`: PRD가 feature definition으로 내려갈 수 있는지 검토합니다.
 - `feature-definition-reviewer`: 기능 정의가 page-flow-planner로 내려갈 수 있는지 검토합니다.
 - `page-flow-reviewer`: 페이지/플로우가 prd-to-trd-bridge로 내려갈 수 있는지 검토합니다.
-- `trd-reviewer`: TRD가 contract, risk, ticket 단계로 내려갈 수 있는지 검토합니다.
+- `prd-to-trd-bridge`: TRD로 바로 갈지, API/data contract를 먼저 잠글지 판단합니다.
+- `trd-reviewer`: TRD가 contract plan을 반영했고 risk, ticket 단계로 내려갈 수 있는지 검토합니다.
 
 리뷰 결과는 `Go`, `Revise`, `No-go` 중 하나로 끝내고, blocker가 있으면 다음 단계로 밀지 않습니다.
 
@@ -500,13 +504,14 @@ TRD 전 blocker를 확인해줘.
 
 ### 13. prd-to-trd-bridge
 
-PRD와 기능/페이지 기획을 TRD 입력으로 변환합니다.
+PRD와 기능/페이지 기획을 TRD 입력으로 변환하고, TRD 전에 API/data contract를 먼저 잠글지 판단합니다.
 
 사용할 때:
 
 - 제품 요구사항을 기술 계획으로 넘겨야 할 때
 - 어떤 시스템/API/데이터/권한에 영향이 있는지 정리해야 할 때
 - TRD 작성 전에 engineering questions를 모아야 할 때
+- 다음 단계가 `api-data-contract-planner`인지 `trd-writer`인지 판단해야 할 때
 
 프롬프트:
 
@@ -531,8 +536,13 @@ PRD:
 산출물의 큰 제목은 한글 (English) 형식으로 작성해줘.
 제품 요구사항을 기술 영향 영역으로 매핑하고,
 예상 영향 시스템, 서비스 영역별 영향, API/데이터 고려사항,
-권한/보안 고려사항, 비기능 요구사항, 엔지니어링 질문을 정리해줘.
+계약 선행 판단, 권한/보안 고려사항, 비기능 요구사항, 엔지니어링 질문을 정리해줘.
 관리자 서비스와 사용자 앱의 구현/권한/릴리즈 영향이 다르면 분리해서 작성해줘.
+다음은 보통 `api-data-contract-planner`가 적합하다. 특히 여러 서비스,
+권한/세션, 삭제/보관, audit/logging, worker/job, file/media,
+push/notification, migration/indexing이 관련되면 TRD 작성 전에
+API/data contract를 먼저 구체화한다. API/data 영향이 작고 계약이
+이미 명확한 경우에만 `trd-writer`로 바로 이동한다.
 ```
 
 다음으로 넘어가는 기준:
@@ -540,15 +550,63 @@ PRD:
 - 주요 제품 요구사항이 기술 영향 영역에 매핑된다.
 - TRD 작성 전에 답해야 할 질문이 보인다.
 - 요구사항 추적성이 있다.
+- 여러 서비스, 권한/세션, 삭제/보관, audit, 결제, 개인정보, 알림, 파일/media, worker/job, migration/indexing이 있으면 `api-data-contract-planner`를 먼저 사용한다.
+- 단순 UI-only 변경, backend/data 영향이 거의 없는 변경, API contract가 이미 확정된 변경만 `trd-writer`로 바로 이동한다.
 
-### 14. trd-writer
+### 14. api-data-contract-planner
 
-TRD를 작성합니다. 제품 결정을 기술 결정으로 바꿉니다.
+API와 데이터 계약을 TRD 전에 상세화합니다. TRD가 API schema, data model, permission boundary, event contract를 추측하지 않도록 서비스 간 계약을 잠그는 단계입니다.
+
+사용할 때:
+
+- 여러 서비스가 같은 요구사항을 나눠 구현할 때
+- 권한, 세션, 삭제, audit, 결제, 개인정보, 보관, 알림, 파일/media, worker/job이 관련될 때
+- API owner, auth context, data object, event schema, migration/indexing이 불명확할 때
+- acceptance criteria가 API/data/event로 검증되어야 할 때
+- rollout/rollback이 데이터 상태나 API backward compatibility에 영향을 받을 때
+
+프롬프트:
+
+```text
+api-data-contract-planner 스킬을 사용해서 아래 bridge 결과의 API와 데이터 계약을 구체화해줘.
+
+PRD to TRD Bridge:
+<prd-to-trd-bridge 결과 붙여넣기>
+
+관련 PRD:
+<PRD 붙여넣기>
+
+산출물의 큰 제목은 한글 (English) 형식으로 작성해줘.
+이 스킬은 TRD가 API schema, data model, permission boundary,
+event contract를 추측하지 않도록, TRD 작성 전에 서비스 간 계약을
+잠그는 단계다. TRD는 이 결과를 기반으로 architecture, rollout,
+rollback, test plan, observability, performance/security tradeoff를 작성한다.
+
+지원 동작, API 계약, owner service, caller/consumer, 요청/응답,
+auth context, reads/writes, 검증, 에러 케이스, 호환성,
+서비스 간 책임, 비전형 리소스 계약, 데이터 모델 변경사항,
+마이그레이션, 인덱스/성능 메모, 이벤트/분석, 열린 계약 질문을 정리해줘.
+gateway, bff, user-service, worker, storage/media, push sender가
+각각 어떤 API/data 계약을 지키는지도 분리해줘.
+삭제 차단이 있으면 media_fetch, queued_job, running_job,
+push_send_target, signed URL 같은 비전형 resource도 contract로 잡아줘.
+```
+
+다음으로 넘어가는 기준:
+
+- endpoint owner, request/response, auth context, reads/writes, error behavior가 구체적이다.
+- data object, event schema, migration/indexing, compatibility가 정리되어 있다.
+- TRD의 Test Plan, Observability, Security Considerations가 이 계약을 기준으로 검증 가능하다.
+
+### 15. trd-writer
+
+TRD를 작성합니다. 제품 결정을 기술 결정으로 바꾸되, 복잡한 API/data 계약은 `api-data-contract-planner` 산출물을 입력으로 받는 것을 기본으로 합니다.
 
 사용할 때:
 
 - PRD와 제품 흐름이 안정된 뒤
-- 구현 방식, API, 데이터, 권한, 관측성, 롤백, 테스트를 정리해야 할 때
+- API/data contract가 충분히 정리된 뒤
+- 구현 방식, 권한, 관측성, 롤백, 테스트를 정리해야 할 때
 - 티켓 생성 전 기술 설계를 잠가야 할 때
 
 프롬프트:
@@ -559,11 +617,18 @@ trd-writer 스킬을 사용해서 아래 입력을 기반으로 TRD를 작성해
 PRD to TRD Bridge:
 <prd-to-trd-bridge 결과 붙여넣기>
 
+API/Data Contract Plan:
+<api-data-contract-planner 결과 붙여넣기. API/data 영향이 작고 계약이 이미 명확한 경우에만 생략>
+
 관련 PRD:
 <PRD 붙여넣기>
 
 산출물의 큰 제목은 한글 (English) 형식으로 작성해줘.
-기술 요약, 제품 요구사항 추적성, 아키텍처/접근 방식,
+복수 서비스, 권한/세션, 삭제/보관, audit, worker/job, file/media,
+push, migration/indexing이 포함된 요구사항은 api-data-contract-planner
+산출물을 먼저 입력으로 받는 것을 기본으로 한다.
+
+기술 요약, 제품 요구사항 추적성, 입력 계약 요약, 아키텍처/접근 방식,
 프론트엔드 변경사항, 백엔드/서비스 변경사항, API 계약,
 데이터 모델/마이그레이션, 인증/권한, 관측성, 성능/보안,
 롤아웃/롤백, 테스트 계획, 리스크와 트레이드오프,
@@ -574,16 +639,17 @@ PRD to TRD Bridge:
 
 - TRD가 PRD 요구사항을 추적한다.
 - 운영 영향이 있는 변경에는 관측성, 롤백, 테스트가 있다.
+- contract-heavy work의 Test Plan, Observability, Security Considerations가 API/data/event 계약을 기준으로 검증 가능하다.
 - 열린 기술 질문이 숨겨지지 않았다.
 
-### 15. trd-reviewer
+### 16. trd-reviewer
 
 TRD가 구현 준비 상태인지 검토합니다.
 
 사용할 때:
 
 - TRD 작성 직후
-- API/data contract 상세화 또는 티켓 생성 전
+- API/data contract 반영 여부 또는 티켓 생성 전 구현 준비도를 검토할 때
 - 기술 설계의 위험을 잡아야 할 때
 
 프롬프트:
@@ -597,8 +663,11 @@ TRD:
 관련 PRD:
 <PRD 붙여넣기>
 
+API/Data Contract Plan:
+<api-data-contract-planner 결과가 있으면 붙여넣기>
+
 산출물의 큰 제목은 한글 (English) 형식으로 작성해줘.
-PRD coverage, architecture clarity, API/data contract gaps,
+PRD coverage, architecture clarity, API/data contract 반영 여부,
 migration risk, auth/security gaps, observability gaps,
 rollback weakness, performance risks, insufficient test strategy를 확인해줘.
 마지막에는 진행 / 수정 / 중단 (Go / Revise / No-go)을 추천해줘.
@@ -608,37 +677,7 @@ rollback weakness, performance risks, insufficient test strategy를 확인해줘
 
 - 기술 설계가 PRD를 충족한다.
 - blocker가 있으면 `trd-writer`로 돌아간다.
-- API/data contract가 약하면 `api-data-contract-planner`를 사용한다.
-
-### 16. api-data-contract-planner
-
-API와 데이터 계약을 상세화합니다.
-
-사용할 때:
-
-- API, DB, event, analytics 변경이 있을 때
-- TRD의 contract가 구현하기엔 부족할 때
-- request/response, validation, error, migration이 필요할 때
-
-프롬프트:
-
-```text
-api-data-contract-planner 스킬을 사용해서 아래 TRD의 API와 데이터 계약을 구체화해줘.
-
-TRD:
-<TRD 붙여넣기>
-
-산출물의 큰 제목은 한글 (English) 형식으로 작성해줘.
-지원 동작, API 계약, 요청/응답, 검증, 에러 케이스,
-인증/권한, 호환성, 데이터 모델 변경사항, 마이그레이션,
-인덱스/성능 메모, 이벤트/분석, 열린 계약 질문을 정리해줘.
-```
-
-다음으로 넘어가는 기준:
-
-- API/data contract가 구현 가능한 수준이다.
-- migration과 compatibility가 고려되어 있다.
-- auth와 error behavior가 빠지지 않았다.
+- API/data contract가 약하거나 TRD에 반영되지 않았으면 `api-data-contract-planner` 또는 `trd-writer`로 돌아간다.
 
 ### 17. technical-risk-checker
 
@@ -793,6 +832,7 @@ prd-reviewer
 -> page-flow-planner
 -> page-flow-reviewer
 -> prd-to-trd-bridge
+-> api-data-contract-planner
 -> trd-writer
 -> trd-reviewer
 ```
@@ -801,11 +841,19 @@ API/DB 변경이 큰 경우:
 
 ```text
 prd-to-trd-bridge
--> trd-writer
 -> api-data-contract-planner
+-> trd-writer
 -> trd-reviewer
 -> technical-risk-checker
 -> spec-to-tickets
+```
+
+단순 UI-only 변경이거나 backend/data 영향이 거의 없고 API contract가 이미 확정된 경우:
+
+```text
+prd-to-trd-bridge
+-> trd-writer
+-> trd-reviewer
 ```
 
 기존 문서에서 티켓만 만들고 싶을 때:
@@ -844,8 +892,9 @@ phase-planner
 | interaction surface/flow 리뷰에서 blocker가 발견됨 | page-flow-planner |
 | 관리자 서비스와 사용자 앱 경계가 불명확함 | target-system-planner |
 | PRD 요구사항과 기술 영향이 연결되지 않음 | prd-to-trd-bridge |
-| TRD의 구현/롤백/테스트 전략이 약함 | trd-writer |
 | API/DB 계약이 구현하기에 부족함 | api-data-contract-planner |
+| API owner, auth context, data object, event schema, migration/indexing이 불명확함 | api-data-contract-planner |
+| TRD의 구현/롤백/테스트 전략이 약함 | trd-writer |
 | blocking technical risk가 있음 | technical-risk-checker |
 
 ## 최종 품질 체크리스트 (Final Quality Checklist)
@@ -860,7 +909,9 @@ phase-planner
 - 기능 정의 리뷰가 PRD 추적성, MVP 범위, 상태/권한/예외 누락을 잡았는가?
 - interaction surface 기획이 관리자 서비스와 사용자 앱을 구분하고 surface type, happy path, 예외 상태를 모두 다루는가?
 - page-flow-reviewer가 서비스 분리, surface type 과잉/누락, surface-기능 커버리지, 상태/권한/연동 누락을 잡았는가?
-- TRD가 PRD 요구사항을 추적하고 구현/관측성/롤백/테스트를 설명하는가?
+- prd-to-trd-bridge가 TRD 직행 가능 여부와 API/data contract 선행 필요 여부를 판단했는가?
 - API/data contract가 validation, error, auth, compatibility를 포함하는가?
+- 복수 서비스, 권한/세션, 삭제/보관, audit, worker/job, file/media, push, migration/indexing 변경이 TRD 전에 contract로 잠겼는가?
+- TRD가 PRD 요구사항과 API/data/event 계약을 추적하고 구현/관측성/롤백/테스트를 설명하는가?
 - technical risk가 mitigation, tests, monitoring으로 이어지는가?
 - 티켓이 PRD와 TRD를 모두 기준으로 작성되는가?
